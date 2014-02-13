@@ -25,6 +25,7 @@ import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PointF;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -105,19 +106,19 @@ public class AnimatedWtaLogoView extends View {
     public void start() {
         mStartTime = System.currentTimeMillis();
         changeState(STATE_TRACE_STARTED);
-        postInvalidateOnAnimation();
+        ViewCompat.postInvalidateOnAnimation(this);
     }
 
     public void reset() {
         mStartTime = 0;
         changeState(STATE_NOT_STARTED);
-        postInvalidateOnAnimation();
+        ViewCompat.postInvalidateOnAnimation(this);
     }
 
     public void setToFinishedFrame() {
         mStartTime = 1;
         changeState(STATE_FINISHED);
-        postInvalidateOnAnimation();
+        ViewCompat.postInvalidateOnAnimation(this);
     }
 
     @Override
@@ -209,7 +210,7 @@ public class AnimatedWtaLogoView extends View {
 
         if (t < FILL_START + FILL_TIME) {
             // draw next frame if animation isn't finished
-            postInvalidateOnAnimation();
+            ViewCompat.postInvalidateOnAnimation(this);
         } else {
             changeState(STATE_FINISHED);
         }

@@ -16,10 +16,11 @@
 
 package com.willowtreeapps.saguaro.android.animation;
 
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 import com.willowtreeapps.saguaro.android.R;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
@@ -55,17 +56,16 @@ public class AnimatedWtaLogoFragment extends Fragment {
             @Override
             public void onStateChange(int state) {
                 if (state == AnimatedWtaLogoView.STATE_FILL_STARTED) {
-                    mSubtitleView.setAlpha(0);
+                    ViewHelper.setAlpha(mSubtitleView, 0);
                     mSubtitleView.setVisibility(View.VISIBLE);
                     //mSubtitleView.setTranslationX(-mSubtitleView.getWidth());
 
                     // Bug in older versions where set.setInterpolator didn't work
                     AnimatorSet set = new AnimatorSet();
                     Interpolator interpolator = new AccelerateInterpolator();
-                    ObjectAnimator a1 = ObjectAnimator.ofFloat(mLogoView, View.TRANSLATION_X, 0);
-                    ObjectAnimator a2 = ObjectAnimator.ofFloat(mSubtitleView,
-                            View.TRANSLATION_X, 0);
-                    ObjectAnimator a3 = ObjectAnimator.ofFloat(mSubtitleView, View.ALPHA, 1);
+                    ObjectAnimator a1 = ObjectAnimator.ofFloat(mLogoView, "translationX", 0);
+                    ObjectAnimator a2 = ObjectAnimator.ofFloat(mSubtitleView, "translationX", 0);
+                    ObjectAnimator a3 = ObjectAnimator.ofFloat(mSubtitleView, "alpha", 1);
                     a1.setInterpolator(interpolator);
                     a2.setInterpolator(interpolator);
                     set.setDuration(500).playTogether(a1, a2, a3);
@@ -96,7 +96,7 @@ public class AnimatedWtaLogoFragment extends Fragment {
 
     public void reset() {
         mLogoView.reset();
-        mLogoView.setTranslationX(mInitialLogoOffset / 2);
+        ViewHelper.setTranslationX(mLogoView, mInitialLogoOffset / 2);
         mSubtitleView.setVisibility(View.INVISIBLE);
     }
 }
