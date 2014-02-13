@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="isFullVersionText" format="boolean" />
+
+    <declare-styleable name="VersionTextView">
+        <attr name="isFullVersionText" />
+    </declare-styleable>
+</resources>

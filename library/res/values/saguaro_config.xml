@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mit_licensed_projects"></string-array>
+    <string-array name="apache_2_0_licensed_projects"></string-array>
+</resources>

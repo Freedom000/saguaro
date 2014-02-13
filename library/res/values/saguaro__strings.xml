@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="full_version_text_dynamic">Version %1$s build %2$s</string>
+    <string name="min_version_text_dynamic">v%1$s b%2$s</string>
+    <string name="close">Close</string>
+    <string name="acknowledgments">Acknowledgments</string>
+    <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="licenses_header">%1$s is built using open source software:</string>
+    <string name="built_by_willowtree_apps">Built by WillowTree Apps</string>
+</resources>
+
