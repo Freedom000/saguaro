@@ -22,16 +22,10 @@
             android:layout_height="wrap_content"
             android:text="Reset Animations" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <fragment
-                android:name="com.willowtreeapps.saguaro.android.animation.AnimatedWtaLogoFragment"
-                android:id="@+id/animated_logo_fragment"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content" />
-        </FrameLayout>
+        <com.willowtreeapps.saguaro.android.animation.AnimatedWtaLogoView
+            android:id="@+id/full_logo"
+            android:layout_width="250dp"
+            android:layout_height="72.5dp"
+            android:contentDescription="@string/built_by_willowtree_apps" />
     </LinearLayout>
 </ScrollView>
