@@ -85,6 +85,15 @@ public class Saguaro {
             sb.append("\n\n");
         }
 
+        // Iterate over "Other" projects
+        String[] otherProjects = resources.getStringArray(R.array.other_projects);
+        if (otherProjects.length > 0) {
+            for (String project : otherProjects) {
+                sb.append(project);
+                sb.append("\n\n");
+            }
+        }
+
         // Append licenses if needed
         if (apache2Projects.length > 0) {
             sb.append(resources.getString(R.string.apache_2_0_license));

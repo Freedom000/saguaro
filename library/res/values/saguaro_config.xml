@@ -3,7 +3,6 @@
     <string-array name="mit_licensed_projects" />
     <string-array name="apache_2_0_licensed_projects" />
     <string-array name="other_projects" />
-    <string-array name="other_projects_licenses" />
 
     <string name="send_feedback_email" />
     <string name="send_feedback_optional_subject" />
