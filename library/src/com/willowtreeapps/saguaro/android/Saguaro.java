@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
@@ -121,6 +122,36 @@ public class Saguaro {
                 tv.setMovementMethod(LinkMovementMethod.getInstance());
             }
         }
+    }
+
+    public static Intent getSendFeedbackIntent(Context context) {
+        Intent sendFeedbackIntent = new Intent(Intent.ACTION_SENDTO);
+
+        StringBuilder uriBuilder = new StringBuilder();
+        uriBuilder.append("mailto:");
+        uriBuilder.append(context.getString(R.string.send_feedback_email));
+
+        uriBuilder.append("?subject=");
+        String subject = context.getString(R.string.send_feedback_optional_subject);
+        if (TextUtils.isEmpty(subject)) {
+            uriBuilder.append(Uri.encode(
+                    String.format(context.getString(R.string.feedback_subject), getApplicationName(context))));
+        } else {
+            uriBuilder.append(Uri.encode(subject));
+        }
+
+        uriBuilder.append("&body=");
+        String body = context.getString(R.string.send_feedback_optional_body);
+        if (TextUtils.isEmpty(body)) {
+            uriBuilder.append(Uri.encode("\n\n"));
+            uriBuilder.append(Uri.encode(getFullVersionString(context)));
+        } else {
+            uriBuilder.append(Uri.encode(body));
+        }
+
+        sendFeedbackIntent.setData(Uri.parse(uriBuilder.toString()));
+
+        return sendFeedbackIntent;
     }
 
     private static String getVersionInfo(Context context, int stringResId) {

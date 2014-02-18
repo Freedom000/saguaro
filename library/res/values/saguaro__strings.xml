@@ -4,6 +4,8 @@
     <string name="min_version_text_dynamic">v%1$s b%2$s</string>
     <string name="close">Close</string>
     <string name="acknowledgments">Acknowledgments</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="feedback_subject">%1$s Android Feedback</string>
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="licenses_header">%1$s is built using open source software:</string>
     <string name="built_by_willowtree_apps">Built by WillowTree Apps</string>

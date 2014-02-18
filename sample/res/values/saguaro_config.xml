@@ -14,4 +14,5 @@
         <item>Apache 3</item>
         <item>Apache 4</item>
     </string-array>
+    <string name="send_feedback_email">mytestemail@mytestdomain.com</string>
 </resources>
