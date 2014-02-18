@@ -24,7 +24,7 @@
         <sign.keypass>DONT_ACTUALLY_PUT_THE_PASSWORD_HERE</sign.keypass>
         <app.versioncode>9999</app.versioncode>
 
-        <maven-testflight-plugin.version>1.4.4</maven-testflight-plugin.version>
+        <testflight-maven-plugin.version>1.0.0</testflight-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -89,39 +89,136 @@
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
                 <extensions>true</extensions>
+                <configuration>
+                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+                    <assetsDirectory>${project.basedir}/assets</assetsDirectory>
+                    <resourceDirectory>${project.basedir}/res</resourceDirectory>
+                    <nativeLibrariesDirectory>${project.basedir}/libs</nativeLibrariesDirectory>
+                    <sdk>
+                        <platform>18</platform>
+                    </sdk>
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <id>release</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
+            <id>sign</id>
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jarsigner-plugin</artifactId>
+                        <version>1.2</version>
+                        <executions>
+                            <execution>
+                                <id>signing</id>
+                                <goals>
+                                    <goal>sign</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <inherited>true</inherited>
+                                <configuration>
+                                    <removeExistingSignatures>true</removeExistingSignatures>
+                                    <archiveDirectory />
+                                    <includes>
+                                        <include>
+                                            ${project.build.directory}/${project.build.finalName}.apk
+                                        </include>
+                                    </includes>
+                                    <keystore>${sign.keystore}</keystore>
+                                    <alias>${sign.keyalias}</alias>
+                                    <storepass>${sign.storepass}</storepass>
+                                    <keypass>${sign.keypass}</keypass>
+                                    <verbose>true</verbose>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                         <artifactId>android-maven-plugin</artifactId>
-                        <version>${android-maven.version}</version>
                         <inherited>true</inherited>
                         <configuration>
+                            <sign>
+                                <debug>false</debug>
+                            </sign>
                             <zipalign>
+                                <skip>false</skip>
+                                <verbose>true</verbose>
                                 <inputApk>${project.build.directory}/${project.build.finalName}.apk</inputApk>
-                                <outputApk>${project.build.directory}/${project.artifactId}.apk</outputApk>
+                                <outputApk>${project.build.directory}/${project.build.finalName}-signed-aligned.apk
+                                </outputApk>
                             </zipalign>
+                            <manifest>
+                                <debuggable>false</debuggable>
+                                <versionCode>${app.versioncode}</versionCode>
+                                <versionName>${project.version}</versionName>
+                                <versionCodeAutoIncrement>false</versionCodeAutoIncrement>
+                            </manifest>
+                            <proguard>
+                                <skip>true</skip>
+                            </proguard>
                         </configuration>
                         <executions>
+                            <execution>
+                                <id>manifestUpdate</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>manifest-update</goal>
+                                </goals>
+                            </execution>
                             <execution>
                                 <id>alignApk</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>zipalign</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!--
+            This profile needs to run after the profile 'sign'.  It is dependent
+            on the outputApk file path created in the alignApk execution which runs in the package phase.
+
+            Properties passed from a profile named tfinternal.
+            mvn clean install -Psign,tfinternal,testflight -Dapp.versioncode=9999 -Dsign.storepass=pword -Dsign.keypass=pword
+
+            Properties passed on the command line.  Note the -e on the end of the command to print exceptions.
+            mvn clean install -Psign,testflight -Dapp.versioncode=9999 -Dsign.storepass=pword -Dsign.keypass=pword -DtestFlightApiToken=api token -DtestFlightTeamToken=team token -DtestFlightDistroList=Internal -e
+            -->
+            <id>testflightInternal</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.willowtreeapps.maven.plugins</groupId>
+                        <artifactId>maven-testflight-plugin</artifactId>
+                        <version>${testflight-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>upload</goal>
+                                </goals>
+                                <configuration>
+                                    <testFlightApiToken>
+                                        c6caffa98bf8830d9a564fc0cd504f1b_MjIwNjkyMjAxMS0xMS0xNyAxMTozMjozOC42NDQwNTU
+                                    </testFlightApiToken>
+                                    <testFlightTeamToken>
+                                        19daa30e797e0bbdd25fd2c5f5405a01_MTM2NTQ3MjAxMi0wOS0yNiAxNToxNjoxNi44ODMwMzQ
+                                    </testFlightTeamToken>
+                                    <testFlightDistroList>Internal</testFlightDistroList>
+                                    <apkPath>${project.build.directory}/${project.build.finalName}-signed-aligned.apk
+                                    </apkPath>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
