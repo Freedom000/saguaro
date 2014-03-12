@@ -23,6 +23,6 @@
         <com.willowtreeapps.saguaro.android.widget.VersionTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            saguaro:isFullVersionText="false" />
+            saguaro:saguaro__isFullVersionText="false" />
     </LinearLayout>
 </ScrollView>

@@ -46,22 +46,29 @@ public class Saguaro {
     }
 
     public static String getFullVersionString(Context context) {
-        return getVersionInfo(context, R.string.full_version_text_dynamic);
+        return getVersionInfo(context, R.string.saguaro__full_version_text_dynamic);
     }
 
     public static String getMinVersionString(Context context) {
-        return getVersionInfo(context, R.string.min_version_text_dynamic);
+        return getVersionInfo(context, R.string.saguaro__min_version_text_dynamic);
     }
 
     public static void showOpenSourceDialog(Context context) {
         Resources resources = context.getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.acknowledgments);
+        builder.setTitle(R.string.saguaro__acknowledgments);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format(resources.getString(R.string.licenses_header), getApplicationName(context)));
+        sb.append(String.format(resources.getString(R.string.saguaro__licenses_header), getApplicationName(context)));
         sb.append("\n\n");
+
+        // Iterate over "Other" projects
+        String otherAcknowldgments = resources.getString(R.string.prepend_acknowledgments_text);
+        if (!TextUtils.isEmpty(otherAcknowldgments)) {
+            sb.append(otherAcknowldgments);
+            sb.append("\n\n");
+        }
 
         // Iterate over Apache 2.0 projects
         String[] apache2Projects = resources.getStringArray(R.array.apache_2_0_licensed_projects);
@@ -70,7 +77,7 @@ public class Saguaro {
                 sb.append("\u2022 ").append(project).append("\n");
             }
             sb.append("\n");
-            sb.append(resources.getString(R.string.apache_2_0_subheader));
+            sb.append(resources.getString(R.string.saguaro__apache_2_0_subheader));
             sb.append("\n\n");
         }
 
@@ -81,31 +88,22 @@ public class Saguaro {
                 sb.append("\u2022 ").append(project).append("\n");
             }
             sb.append("\n");
-            sb.append(resources.getString(R.string.mit_subheader));
+            sb.append(resources.getString(R.string.saguaro__mit_subheader));
             sb.append("\n\n");
-        }
-
-        // Iterate over "Other" projects
-        String[] otherProjects = resources.getStringArray(R.array.other_projects);
-        if (otherProjects.length > 0) {
-            for (String project : otherProjects) {
-                sb.append(project);
-                sb.append("\n\n");
-            }
         }
 
         // Append licenses if needed
         if (apache2Projects.length > 0) {
-            sb.append(resources.getString(R.string.apache_2_0_license));
+            sb.append(resources.getString(R.string.saguaro__apache_2_0_license));
             sb.append("\n\n");
         }
         if (mitProjects.length > 0) {
-            sb.append(resources.getString(R.string.mit_license));
+            sb.append(resources.getString(R.string.saguaro__mit_license));
             sb.append("\n\n");
         }
 
         builder.setMessage(sb.toString());
-        builder.setNegativeButton(resources.getString(R.string.close), new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(resources.getString(R.string.saguaro__close), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -144,7 +142,7 @@ public class Saguaro {
         String subject = context.getString(R.string.send_feedback_optional_subject);
         if (TextUtils.isEmpty(subject)) {
             uriBuilder.append(Uri.encode(
-                    String.format(context.getString(R.string.feedback_subject), getApplicationName(context))));
+                    String.format(context.getString(R.string.saguaro__feedback_subject), getApplicationName(context))));
         } else {
             uriBuilder.append(Uri.encode(subject));
         }
@@ -187,7 +185,7 @@ public class Saguaro {
         } catch (final PackageManager.NameNotFoundException e) {
             ai = null;
         }
-        return (String) (ai != null ? pm.getApplicationLabel(ai) : "This application");
+        return (String) (ai != null ? pm.getApplicationLabel(ai) : context.getString(R.string.saguaro__this_application));
     }
 
     private static class ClickableString extends ClickableSpan {

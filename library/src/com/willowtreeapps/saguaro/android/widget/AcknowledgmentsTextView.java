@@ -27,7 +27,7 @@ public class AcknowledgmentsTextView extends TextView {
     }
 
     private void refreshAcknowledgmentsText() {
-        SpannableString openSourceLink = Saguaro.makeLinkSpan(getContext().getString(R.string.acknowledgments),
+        SpannableString openSourceLink = Saguaro.makeLinkSpan(getContext().getString(R.string.saguaro__acknowledgments),
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

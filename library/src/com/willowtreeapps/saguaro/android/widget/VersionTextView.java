@@ -27,7 +27,7 @@ public class VersionTextView extends TextView {
         super(context, attrs, defStyle);
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.VersionTextView);
-        mIsFullVersionText = a.getBoolean(R.styleable.VersionTextView_isFullVersionText, true);
+        mIsFullVersionText = a.getBoolean(R.styleable.VersionTextView_saguaro__isFullVersionText, true);
         a.recycle();
     }
 

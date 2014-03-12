@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="isFullVersionText" format="boolean" />
+    <attr name="saguaro__isFullVersionText" format="boolean" />
 
     <declare-styleable name="VersionTextView">
-        <attr name="isFullVersionText" />
+        <attr name="saguaro__isFullVersionText" />
     </declare-styleable>
 </resources>

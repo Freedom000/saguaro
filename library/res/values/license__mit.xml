@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="mit_subheader">Each of the above projects is licensed under the MIT License (MIT),
+    <string name="saguaro__mit_subheader">Each of the above projects is licensed under the MIT License (MIT),
         which follows.</string>
-    <string name="mit_license">The MIT License (MIT)
+    <string name="saguaro__mit_license">The MIT License (MIT)
 
 Copyright (c) &lt;year&gt; &lt;copyright holders&gt;
 

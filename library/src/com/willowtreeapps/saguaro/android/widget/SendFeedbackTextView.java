@@ -27,7 +27,7 @@ public class SendFeedbackTextView extends TextView {
     }
 
     private void refreshSendFeedbackText() {
-        SpannableString sendFeedbackLink = Saguaro.makeLinkSpan(getContext().getString(R.string.send_feedback),
+        SpannableString sendFeedbackLink = Saguaro.makeLinkSpan(getContext().getString(R.string.saguaro__send_feedback),
                 new OnClickListener() {
                     @Override
                     public void onClick(View v) {
