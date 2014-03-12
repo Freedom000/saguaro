@@ -36,6 +36,15 @@ Usage
             <string name="send_feedback_email">mytestemail@mytestdomain.com</string>
         </resources>
 
+* You can further customize sending feedback with a custom subject and body.
+
+        <string name="send_feedback_optional_subject">Feature request from Oprah</string>
+        <string name="send_feedback_optional_body">PLEASE ADD MORE BEES.</string>
+
+* You can further customize acknowledgments by adding custom prepended acknowledgments.
+
+        <string name="prepend_acknowledgments_text">Special thanks to Oprah for providing copious amounts of bees.</string>
+
 Including in Your Project
 =========================
 
@@ -71,7 +80,7 @@ Contribution
 
 ### Pull requests are welcome!
 
-Feel free to contribute to BetterPickers.
+Feel free to contribute to Saguaro.
 
 If you've fixed a bug or have a feature you've added, just create a pull request.
 

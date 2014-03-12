@@ -14,5 +14,6 @@
         <item>Apache 3</item>
         <item>Apache 4</item>
     </string-array>
+    <string name="prepend_acknowledgments_text">• Oprah for providing copious amounts of bees.</string>
     <string name="send_feedback_email">mytestemail@mytestdomain.com</string>
 </resources>
