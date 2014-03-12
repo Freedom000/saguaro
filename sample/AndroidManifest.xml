@@ -29,22 +29,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AttributionActivity"
-            android:label="Attribution">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.willowtreeapps.saguaro.android.sample.SAMPLE" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.FullLogoAttributionActivity"
-            android:label="Full Logo Attribution">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.willowtreeapps.saguaro.android.sample.SAMPLE" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".activity.AcknowledgmentsActivity"
             android:label="Acknowledgments">
             <intent-filter>
