@@ -58,7 +58,7 @@
         <android.platform>19</android.platform>
         <android.support.version>19.0.1</android.support.version>
 
-        <android-maven.version>3.8.2</android-maven.version>
+        <android-maven.version>3.9.0-rc.1</android-maven.version>
     </properties>
 
     <dependencyManagement>
