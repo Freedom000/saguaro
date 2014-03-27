@@ -25,12 +25,20 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Saguaro {
 
@@ -53,13 +61,13 @@ public class Saguaro {
         return getVersionInfo(context, R.string.saguaro__min_version_text_dynamic);
     }
 
-    public static void showOpenSourceDialog(Context context) {
+    public static void showOpenSourceDialog(final Context context) {
         Resources resources = context.getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.saguaro__acknowledgments);
 
-        StringBuilder sb = new StringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(String.format(resources.getString(R.string.saguaro__licenses_header), getApplicationName(context)));
         sb.append("\n\n");
 
@@ -70,39 +78,43 @@ public class Saguaro {
             sb.append("\n\n");
         }
 
-        // Iterate over Apache 2.0 projects
-        String[] apache2Projects = resources.getStringArray(R.array.apache_2_0_licensed_projects);
-        if (apache2Projects.length > 0) {
-            for (String project : apache2Projects) {
-                sb.append("\u2022 ").append(project).append("\n");
+        String[] baseLicenses = resources.getStringArray(R.array.saguaro__base_licenses);
+        String[] userLicenses = resources.getStringArray(R.array.saguaro_licenses);
+
+        List<String> licenses = new ArrayList<String>();
+        licenses.addAll(Arrays.asList(baseLicenses));
+        licenses.addAll(Arrays.asList(userLicenses));
+
+        for (String license : licenses) {
+            int licenseNameId = resources.getIdentifier(license + "_name", "string", context.getPackageName());
+            final int licenseTextId = resources.getIdentifier(license, "raw", context.getPackageName());
+            int licenseProjectsId = resources.getIdentifier(license + "_projects", "array", context.getPackageName());
+
+            String licenseName = resources.getString(licenseNameId);
+            String[] licenseProjects = resources.getStringArray(licenseProjectsId);
+
+            if (licenseProjects.length > 0) {
+                for (String project : licenseProjects) {
+                    sb.append("\u2022 ").append(project).append("\n");
+                }
+                sb.append("\n");
+                String subHeader = resources.getString(R.string.saguaro__license_subheader, licenseName);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        showLicenseDialog(context, licenseTextId);
+                    }
+                };
+
+                int start = sb.length();
+                int nameStart = subHeader.indexOf(licenseName);
+                sb.append(subHeader);
+                sb.setSpan(clickableSpan, start + nameStart, start + nameStart + licenseName.length(), 0);
+                sb.append("\n\n");
             }
-            sb.append("\n");
-            sb.append(resources.getString(R.string.saguaro__apache_2_0_subheader));
-            sb.append("\n\n");
         }
 
-        // Iterate over MIT projects
-        String[] mitProjects = resources.getStringArray(R.array.mit_licensed_projects);
-        if (mitProjects.length > 0) {
-            for (String project : mitProjects) {
-                sb.append("\u2022 ").append(project).append("\n");
-            }
-            sb.append("\n");
-            sb.append(resources.getString(R.string.saguaro__mit_subheader));
-            sb.append("\n\n");
-        }
-
-        // Append licenses if needed
-        if (apache2Projects.length > 0) {
-            sb.append(resources.getString(R.string.saguaro__apache_2_0_license));
-            sb.append("\n\n");
-        }
-        if (mitProjects.length > 0) {
-            sb.append(resources.getString(R.string.saguaro__mit_license));
-            sb.append("\n\n");
-        }
-
-        builder.setMessage(sb.toString());
+        builder.setMessage(sb);
         builder.setNegativeButton(resources.getString(R.string.saguaro__close), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -112,7 +124,56 @@ public class Saguaro {
         builder.setCancelable(true);
         builder.setIcon(android.R.drawable.ic_menu_info_details);
         AlertDialog dialog = builder.create();
+
         dialog.show();
+
+        TextView message = (TextView) dialog.findViewById(android.R.id.message);
+        message.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    private static void showLicenseDialog(Context context, int licenseTextId) {
+        String licenseText = "";
+        try {
+            licenseText = readRawToString(context.getResources(), licenseTextId);
+        } catch (IOException e) {
+            Log.e("Suguaro", e.getMessage(), e);
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setTitle(R.string.saguaro__acknowledgments)
+                .setMessage(licenseText)
+                .setNegativeButton(R.string.saguaro__close, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_menu_info_details);
+        builder.create().show();
+    }
+
+    private static String readRawToString(Resources resources, int rawId) throws IOException {
+        InputStream in = null;
+        try {
+            in = resources.openRawResource(rawId);
+            return readToString(in);
+        } finally {
+            if (in != null) in.close();
+        }
+    }
+
+    private static String readToString(InputStream inputStream) throws IOException {
+        byte[] bytes = new byte[1000];
+
+        StringBuilder x = new StringBuilder();
+
+        int numRead;
+        while ((numRead = inputStream.read(bytes)) >= 0) {
+            x.append(new String(bytes, 0, numRead));
+        }
+
+        return x.toString();
     }
 
     public static SpannableString makeLinkSpan(CharSequence text, View.OnClickListener listener) {

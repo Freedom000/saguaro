@@ -7,4 +7,5 @@
     <string name="send_feedback_email" />
     <string name="send_feedback_optional_subject" />
     <string name="send_feedback_optional_body" />
+    <string-array name="saguaro_licenses"/>
 </resources>

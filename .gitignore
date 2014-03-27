@@ -20,6 +20,8 @@ tmp/
 target
 release.properties
 pom.xml.*
+.gradle
+build/
 
 #Command line
 local.properties

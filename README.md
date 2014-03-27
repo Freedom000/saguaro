@@ -19,58 +19,99 @@ Usage
 
 You can declare a `VersionTextView` in your xml layout files to automatically populate the version information.  The class extends `TextView` so you can easily apply a custom `Typeface` or style.  By default, `VersionTextView` will display the version in the following format: `v1.2.3 b45`
 
-        <com.willowtreeapps.saguaro.android.widget.VersionTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+```xml
+<com.willowtreeapps.saguaro.android.widget.VersionTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+```
 
 You can enable a "full" version text (`Version 1.2.3 build 45`) by declaring the `res-auto` namespace and adding an attribute like so:
 
-        <com.willowtreeapps.saguaro.android.widget.VersionTextView
-            xmlns:saguaro="http://schemas.android.com/apk/res-auto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            saguaro:saguaro__isFullVersionText="false" />
+```xml
+<com.willowtreeapps.saguaro.android.widget.VersionTextView
+    xmlns:saguaro="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    saguaro:saguaro__isFullVersionText="false" />
+```
 
 You can also programmatically get the version information as a `String`:
 
-        Saguaro.getMinVersionString(mContext);
-        Saguaro.getFullVersionString(mContext);
+```java
+Saguaro.getMinVersionString(mContext);
+Saguaro.getFullVersionString(mContext);
+```
 
 **Acknowledgments/Licensing**
 
 For licensing information, add a `saguaro_config.xml` file in your `res/values` folder and populate your own values.
 
-        <?xml version="1.0" encoding="utf-8"?>
-        <resources>
-            <string-array name="mit_licensed_projects">
-                <item>MIT 1</item>
-                <item>MIT 2</item>
-                <item>MIT 3</item>
-                <item>MIT 4</item>
-                <item>MIT 5</item>
-            </string-array>
-            <string-array name="apache_2_0_licensed_projects">
-                <item>ActionBarSherlock</item>
-                <item>Apache 1</item>
-                <item>Apache 2</item>
-                <item>Apache 3</item>
-                <item>Apache 4</item>
-            </string-array>
-        </resources>
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mit_projects">
+        <item>MIT 1</item>
+        <item>MIT 2</item>
+        <item>MIT 3</item>
+        <item>MIT 4</item>
+        <item>MIT 5</item>
+    </string-array>
+    <string-array name="apache2_projects">
+        <item>ActionBarSherlock</item>
+        <item>Apache 1</item>
+        <item>Apache 2</item>
+        <item>Apache 3</item>
+        <item>Apache 4</item>
+    </string-array>
+    <string-array name="bsd2_projects">
+        <item>BSD 1</item>
+        <item>BSD 2</item>
+        <item>BSD 3</item>
+        <item>BSD 4</item>
+    </string-array>
+</resources>
+```
 
 You can further customize acknowledgments by adding custom prepended acknowledgments.
 
-        <string name="prepend_acknowledgments_text">Special thanks to Oprah for providing copious amounts of bees.</string>
+```xml
+<string name="prepend_acknowledgments_text">Special thanks to Oprah for providing copious amounts of bees.</string>
+```
 
 Then declare an `AcknowledgmentsTextView` in your xml layout.  Again, this extends `TextView` so you can customize it as well.
 
-        <com.willowtreeapps.saguaro.android.widget.AcknowledgmentsTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+```xml
+<com.willowtreeapps.saguaro.android.widget.AcknowledgmentsTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+```
 
 If you'd like to launch the `Dialog` on your own (for example in an `OnClickListener`), you can do so:
 
-        Saguaro.showOpenSourceDialog(mContext);
+```java
+Saguaro.showOpenSourceDialog(mContext);
+```
+
+**Adding your own license**
+
+In addition to the provided Apache 2.0, BSD 2-Clause License, and MIT License,
+you can add your own.
+
+In your `saguaro_config.xml`, add the following to define your own licenses.
+
+```xml
+<string-array name="saguaro_licenses">
+    <item>awesome</item>
+</string-array>
+
+<string name="awesome_name">Super Awesome License</string>
+
+<string-array name="awesome_projects">
+  <item>Awesome Lib</item>
+</string-array>
+```
+
+Then put the contents of you liscense in `res/raw/awesome.txt`
 
 **Sending Feedback**
 
