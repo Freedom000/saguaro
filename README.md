@@ -118,19 +118,25 @@ Then put the contents of you liscense in `res/raw/awesome.txt`
 
 You can customize sending feedback with an e-mail address, and optionally a custom subject and body.
 
-        <string name="send_feedback_email">mytestemail@mytestdomain.com</string>
-        <string name="send_feedback_optional_subject">Feature request from Oprah</string>
-        <string name="send_feedback_optional_body">PLEASE ADD MORE BEES.</string>
+```xml
+<string name="send_feedback_email">mytestemail@mytestdomain.com</string>
+<string name="send_feedback_optional_subject">Feature request from Oprah</string>
+<string name="send_feedback_optional_body">PLEASE ADD MORE BEES.</string>
+```
 
 Then declare a `SendFeedbackTextView` in your xml layout:
 
-        <com.willowtreeapps.saguaro.android.widget.SendFeedbackTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+```xml
+<com.willowtreeapps.saguaro.android.widget.SendFeedbackTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+```
 
 You can also obtain the `Intent` to send feedback programmatically:
 
-        Saguaro.getSendFeedbackIntent(mContext);
+```java
+Saguaro.getSendFeedbackIntent(mContext);
+```
 
 Including in Your Project
 =========================
@@ -143,16 +149,20 @@ Eclipse or ant.
 If you are a Maven user you can easily include the library by specifying it as
 a dependency:
 
+```xml
     <dependency>
       <groupId>com.willowtreeapps.saguaro.android</groupId>
       <artifactId>library</artifactId>
       <version>1.0.0</version>
       <type>aar</type>
     </dependency>
+```
 
 If you are a Gradle user you can also easily include the library:
 
+```groovy
     compile 'com.willowtreeapps.saguaro.android:library:1.0.0'
+```
 
 Changelog
 =========
