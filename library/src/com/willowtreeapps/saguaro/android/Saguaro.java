@@ -90,6 +90,9 @@ public class Saguaro {
             final int licenseTextId = resources.getIdentifier(license, "raw", context.getPackageName());
             int licenseProjectsId = resources.getIdentifier(license + "_projects", "array", context.getPackageName());
 
+            // Skip if no licenses defined
+            if (licenseProjectsId == 0) continue;
+
             String licenseName = resources.getString(licenseNameId);
             String[] licenseProjects = resources.getStringArray(licenseProjectsId);
 

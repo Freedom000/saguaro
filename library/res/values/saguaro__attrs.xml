@@ -10,5 +10,6 @@
         <item>apache2</item>
         <item>bsd2</item>
         <item>mit</item>
+        <item>ccpl3</item>
     </string-array>
 </resources>

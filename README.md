@@ -72,6 +72,8 @@ For licensing information, add a `saguaro_config.xml` file in your `res/values` 
 </resources>
 ```
 
+Valid built-in licenses are `mit`, `apache2`, `bsd2`, and `ccpl3` (Creative Commons).
+
 You can further customize acknowledgments by adding custom prepended acknowledgments.
 
 ```xml
@@ -94,8 +96,7 @@ Saguaro.showOpenSourceDialog(mContext);
 
 **Adding your own license**
 
-In addition to the provided Apache 2.0, BSD 2-Clause License, and MIT License,
-you can add your own.
+In addition to the provided licenses you can add your own.
 
 In your `saguaro_config.xml`, add the following to define your own licenses.
 

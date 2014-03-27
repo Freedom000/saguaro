@@ -13,5 +13,6 @@
     <string name="apache2_name">Apache Licence, Version 2.0</string>
     <string name="bsd2_name">BSD 2-Clause License</string>
     <string name="mit_name">MIT License (MIT)</string>
+    <string name="ccpl3_name">Creative Commons Public License, Attribution 3.0</string>
 </resources>
 
