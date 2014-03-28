@@ -153,7 +153,7 @@ The contents `apache2`, `bsd2`, `mit`, and `ccpl3` are built in.
 
 You can also define your own license that either downloads from a url or that
 you provide in `res/raw`. The below example downloads one license from
-`example.com` and gets the other from `res/raw/second.txt`.
+`beegifs.com` and gets the other from `res/raw/second.txt`.
 
 ```groovy
 saguaro {
