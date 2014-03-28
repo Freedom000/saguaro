@@ -10,7 +10,7 @@ class SaguaroPlugin implements Plugin<Project> {
         SaguaroExt ext = project.extensions.create("saguaro", SaguaroExt)
 
         project.afterEvaluate {
-            project.task("downloadLicenses", type: GenerateLicenses) {
+            project.task("generateLicenses", type: GenerateLicenses) {
                 outputDir = buildOutputDir
                 licenses = ext.licenses
                 aliases = ext.aliases

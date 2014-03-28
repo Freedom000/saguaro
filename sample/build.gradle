@@ -1,5 +1,3 @@
-import org.apache.ivy.core.module.descriptor.License
-
 buildscript {
     repositories {
         mavenLocal()

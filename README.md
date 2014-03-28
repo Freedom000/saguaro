@@ -114,6 +114,71 @@ In your `saguaro_config.xml`, add the following to define your own licenses.
 
 Then put the contents of you liscense in `res/raw/awesome.txt`
 
+**Gradle plugin**
+
+You can also use the gradle plugin to define your licenses in your
+`build.gradle` and automatically fetch licenses from your dependencies.
+
+Start by adding the following to your `build.gradle`
+```groovy
+buildscript {
+  repositories { mavenCentral() }
+  dependencies {
+    classpath "com.willowtreeapps.saguaro:plugin:1.0.0"
+  }
+}
+
+apply plugin: 'saguaro'
+
+saguaro {
+  // Configure your licenses
+}
+```
+
+Then run `gradle generateLicenses` to generate license resources based on your
+dependencies. Howerver, there are a few issues that you will run into with this
+approch.
+
+The first problem is that some dependencies may have licenses but not define
+them in their pom file. In this case, you can add the library manually
+
+```groovy
+saguaro {
+  license apache2, 'Apache 1'
+  license mit, ['Mit 1', 'Mit 2']
+}
+```
+
+The contants `apache2`, `bsd2`, `mit`, and `ccpl3` are built in.
+
+You can also define your own license that either downloads from a url or that
+you provide in `res/raw`. The below example downloads one license from
+`example.com` and gets the other from `res/raw/second.txt`.
+
+```groovy
+saguaro {
+  def myLicense1 = [name: 'My First License', url: 'http://www.example.com']
+  def myLicense2 = [name: 'My Second License', key: 'second']
+
+  license myLicense1, 'Lib 1'
+  license myLicense2, 'Lib 2'
+}
+```
+
+The other problem that you may run into is 2 dependencies with the same license,
+but that are named differently. In this case, you can consolidate them, by using
+an alias.
+
+```groovy
+saguaro {
+  alias apache2, 'Apache 2'
+  alias 'Awesome License', ['Aweesome License', 'Aweeesome License']
+}
+```
+
+This way any libraries labeled with the aliased names will show up as the same
+license.
+
 **Sending Feedback**
 
 You can customize sending feedback with an e-mail address, and optionally a custom subject and body.

@@ -33,7 +33,7 @@ public class GenerateLicenses extends DefaultTask {
     @Input List<String> ignoreDependencies = []
 
     @TaskAction
-    def downloadLicenses() {
+    def generateLicenses() {
         if (!enabled) {
             didWork = false;
             return;
