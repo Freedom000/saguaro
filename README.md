@@ -102,17 +102,17 @@ In your `saguaro_config.xml`, add the following to define your own licenses.
 
 ```xml
 <string-array name="saguaro_licenses">
-    <item>awesome</item>
+    <item>bees</item>
 </string-array>
 
-<string name="awesome_name">Super Awesome License</string>
+<string name="bees_name">Public Bees License</string>
 
-<string-array name="awesome_projects">
-  <item>Awesome Lib</item>
+<string-array name="bees_projects">
+  <item>Bees Lib</item>
 </string-array>
 ```
 
-Then put the contents of you liscense in `res/raw/awesome.txt`
+Then put the contents of you liscense in `res/raw/bees.txt`
 
 **Gradle plugin**
 
@@ -157,10 +157,10 @@ you provide in `res/raw`. The below example downloads one license from
 
 ```groovy
 saguaro {
-  def myLicense1 = [name: 'My First License', url: 'http://www.example.com']
+  def bees = [name: 'Bees License', url: 'http://www.beegifs.com/license.txt']
   def myLicense2 = [name: 'My Second License', key: 'second']
 
-  license myLicense1, 'Lib 1'
+  license bees, 'Bees Lib'
   license myLicense2, 'Lib 2'
 }
 ```
@@ -172,7 +172,7 @@ an alias.
 ```groovy
 saguaro {
   alias apache2, 'Apache 2'
-  alias 'Awesome License', ['Aweesome License', 'Aweeesome License']
+  alias 'Bees License', ['Beees License', 'Beeees License']
 }
 ```
 

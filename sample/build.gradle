@@ -37,11 +37,11 @@ dependencies {
 }
 
 saguaro {
-    def awesome = [name: 'Awesome License', key: 'awesome']
+    def bees = [name: 'Bees']
 
     alias apache2, 'Apache 2'
     license apache2, 'Saguaro'
-    license awesome, 'My Awesome Lib'
+    license bees, 'Bees Lib'
     license mit, ['Mit 1', 'Mit 2', 'Mit 3', 'Mit 4']
     license bsd2, ['BSD 1', 'BSD 2', 'BSD 3']
 }
