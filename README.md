@@ -136,8 +136,8 @@ saguaro {
 ```
 
 Then run `gradle generateLicenses` to generate license resources based on your
-dependencies. Howerver, there are a few issues that you will run into with this
-approch.
+dependencies. However, there are a few issues that you will run into with this
+approach.
 
 The first problem is that some dependencies may have licenses but not define
 them in their pom file. In this case, you can add the library manually
@@ -149,7 +149,7 @@ saguaro {
 }
 ```
 
-The contants `apache2`, `bsd2`, `mit`, and `ccpl3` are built in.
+The contents `apache2`, `bsd2`, `mit`, and `ccpl3` are built in.
 
 You can also define your own license that either downloads from a url or that
 you provide in `res/raw`. The below example downloads one license from
