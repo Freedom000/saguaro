@@ -149,7 +149,7 @@ saguaro {
 }
 ```
 
-The contents `apache2`, `bsd2`, `mit`, and `ccpl3` are built in.
+The constants `apache2`, `bsd2`, `mit`, and `ccpl3` are built in.
 
 You can also define your own license that either downloads from a url or that
 you provide in `res/raw`. The below example downloads one license from
@@ -165,8 +165,8 @@ saguaro {
 }
 ```
 
-The other problem that you may run into is 2 dependencies with the same license,
-but that are named differently. In this case, you can consolidate them, by using
+The other problem that you may run into is two dependencies with the same license,
+but that are named differently. In this case, you can consolidate them by using
 an alias.
 
 ```groovy
