@@ -1,0 +1,12 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    compile 'com.google.guava:guava:16.0.1'
+    compile gradleApi()
+    compile localGroovy()
+}
+
+repositories {
+    mavenCentral()
+}

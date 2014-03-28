@@ -1,4 +1,17 @@
+import org.apache.ivy.core.module.descriptor.License
+
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath "com.willowtreeapps.saguaro:plugin:$version"
+    }
+}
+
 apply plugin: 'android'
+apply plugin: 'saguaro'
 
 android {
     compileSdkVersion 19
@@ -23,4 +36,14 @@ dependencies {
     compile "com.actionbarsherlock:actionbarsherlock:4.4.0@aar"
     compile 'com.android.support:support-v4:19.0.+'
     compile "joda-time:joda-time:2.2"
+}
+
+saguaro {
+    def awesome = [name: 'Awesome License', key: 'awesome']
+
+    alias apache2, 'Apache 2'
+    license apache2, 'Saguaro'
+    license awesome, 'My Awesome Lib'
+    license mit, ['Mit 1', 'Mit 2', 'Mit 3', 'Mit 4']
+    license bsd2, ['BSD 1', 'BSD 2', 'BSD 3']
 }
