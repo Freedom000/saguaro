@@ -165,6 +165,15 @@ saguaro {
 }
 ```
 
+You can also ignore dependecies in case you don't wan't to them to show up or 
+you want to explecitly set their license.
+
+```groovy
+saguaro {
+  ignore 'com.opra.bees:bees:1.0-BEES'
+}
+```
+
 The other problem that you may run into is two dependencies with the same license,
 but that are named differently. In this case, you can consolidate them by using
 an alias.
