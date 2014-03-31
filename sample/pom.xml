@@ -100,6 +100,52 @@
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.willowtreeapps.saguaro.android</groupId>
+                <artifactId>saguaro-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <aliases>
+                        <alias>
+                            <license>
+                                <key>apache2</key>
+                            </license>
+                            <aliases>
+                                <item>Apache 2</item>
+                            </aliases>
+                        </alias>
+                    </aliases>
+                    <licenses>
+                        <item>
+                            <key>apache2</key>
+                            <library>Saguaro</library>
+                        </item>
+                        <item>
+                            <name>Public Bees License</name>
+                            <key>bees</key>
+                            <library>Bees Lib</library>
+                        </item>
+                        <item>
+                            <key>mit</key>
+                            <libraries>
+                                <item>Mit 1</item>
+                                <item>Mit 2</item>
+                                <item>Mit 3</item>
+                                <item>Mit 4</item>
+                            </libraries>
+                        </item>
+                        <item>
+                            <key>bsd2</key>
+                            <libraries>
+                                <item>BSD 1</item>
+                                <item>BSD 2</item>
+                                <item>BSD 3</item>
+                            </libraries>
+                        </item>
+                    </licenses>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

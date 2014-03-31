@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+<string-array name="bees_projects">
+<item>Bees Lib</item>
+</string-array>
+<string name="bees_name">Public Bees License</string>
+<string-array name="bsd2_projects">
+<item>BSD 3</item>
+<item>BSD 1</item>
+<item>BSD 2</item>
+</string-array>
+<string-array name="apache2_projects">
+<item>Saguaro</item>
+<item>Joda time</item>
+<item>saguaro-android</item>
+<item>ActionBarSherlock</item>
+</string-array>
+<string-array name="mit_projects">
+<item>Mit 4</item>
+<item>Mit 1</item>
+<item>Mit 3</item>
+<item>Mit 2</item>
+</string-array>
+<string-array name="saguaro_licenses">
+<item>bees</item>
+</string-array>
+</resources>
