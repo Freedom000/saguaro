@@ -6,7 +6,7 @@ import org.gradle.api.tasks.*
 /**
  * Task for generating dependency license resources
  */
-public class GenerateLicenses extends DefaultTask {
+public class SaguaroGenerate extends DefaultTask {
     /**
      * Output res directory
      */
@@ -32,6 +32,11 @@ public class GenerateLicenses extends DefaultTask {
      */
     @Input List<String> ignoreDependencies = []
 
+    /**
+     * Name of the generated resource file
+     */
+    @Input String resourceName = "saguaro_plugin_config"
+
     @TaskAction
     def generateLicenses() {
         if (!enabled) {
@@ -56,7 +61,7 @@ public class GenerateLicenses extends DefaultTask {
         def reporter = new LicenseReporter()
 
         // Generate report that groups dependencies
-        reporter.generate(dependencyLicensesSet(), outputDir)
+        reporter.generate(dependencyLicensesSet(), outputDir, resourceName)
     }
 
     static LicenseMetadata resolveAliasKey(key) {

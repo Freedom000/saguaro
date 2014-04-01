@@ -11,8 +11,8 @@ class LicenseReporter {
      * @param dependencyMetadataSet set with dependencies
      * @param fileName report file name
      */
-    public void generate(Set<DependencyMetadata> dependencyMetadataSet, File outputDir) {
-        MarkupBuilder xml = getMarkupBuilder(new File(outputDir, "values/saguaro_plugin_config.xml"))
+    public void generate(Set<DependencyMetadata> dependencyMetadataSet, File outputDir, String resourceName) {
+        MarkupBuilder xml = getMarkupBuilder(new File(outputDir, "values/" + resourceName + ".xml"))
         HashMultimap<String, DependencyMetadata> licensesMap = getLicenseMap(dependencyMetadataSet)
 
         List<String> nonBuiltIn = []

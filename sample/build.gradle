@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.willowtreeapps.saguaro:plugin:$version"
+        classpath "com.willowtreeapps.saguaro:gradle-plugin:$version"
     }
 }
 

@@ -26,6 +26,11 @@ class SaguaroExt {
      */
     boolean includeDependencies = true
 
+    /**
+     * The name of the generated resource
+     */
+    String resourceName = "saguaro_plugin_config"
+
     def alias(Object name, Object value) {
         this.alias(name, [value])
     }
@@ -48,6 +53,10 @@ class SaguaroExt {
 
     def ignore(String dependency) {
         ignoreDependencies << dependency
+    }
+
+    def resourceName(String name) {
+        resourceName = name
     }
 
     static final LicenseMetadata apache2 = [name: 'Apache License, Version 2.0', key: 'apache2']

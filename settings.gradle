@@ -1,1 +1,1 @@
-include 'library', 'sample', 'plugin'
+include 'library', 'sample', 'gradle-plugin'
