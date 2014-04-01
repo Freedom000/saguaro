@@ -102,7 +102,7 @@
             </plugin>
 
             <plugin>
-                <groupId>com.willowtreeapps.saguaro.android</groupId>
+                <groupId>com.willowtreeapps.saguaro</groupId>
                 <artifactId>saguaro-maven-plugin</artifactId>
                 <version>${project.version}</version>
                 <configuration>

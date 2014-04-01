@@ -7,6 +7,14 @@
     <name>Saguaro</name>
     <packaging>aar</packaging>
 
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <parent>
         <groupId>com.willowtreeapps.saguaro</groupId>
         <artifactId>parent</artifactId>

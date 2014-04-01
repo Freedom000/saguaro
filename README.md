@@ -135,7 +135,7 @@ saguaro {
 }
 ```
 
-Then run `gradle generateLicenses` to generate license resources based on your
+Then run `gradle saguaroGenerate` to generate license resources based on your
 dependencies. However, there are a few issues that you will run into with this
 approach.
 
@@ -170,7 +170,7 @@ you want to explecitly set their license.
 
 ```groovy
 saguaro {
-  ignore 'com.opra.bees:bees:1.0-BEES'
+  ignore 'com.oprah.bees:bees:1.0-BEES'
 }
 ```
 
@@ -187,6 +187,77 @@ saguaro {
 
 This way any libraries labeled with the aliased names will show up as the same
 license.
+
+**Maven Plugin**
+
+Threre is also a maven plugin, which works the same way as the gradle plugin.
+
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>com.willowtreeapps.saguaro</groupId>
+      <artifactId>saguaro-maven-plugin</artifactId>
+      <version>1.0.0</version>
+    </plugin>
+    <configure><!-- Configure your licenses --></configure>
+  </plugins>
+</build>
+```
+
+You can then execute the `generate` goal.
+
+```bash
+mvn com.willowtreeapps.saguaro:saguaro-maven-plugin:generate
+```
+
+Configuration is very similar, albeit with more verbose xml.
+```xml
+<configure>
+  <licenses>
+    <!-- built in license -->
+    <license>
+      <key>apache2</key>
+      <libraries>
+        <item>Apache 1</item>
+        <item>Apache 2</item>
+      </libraries>
+    </license>
+    <!-- custom local license -->
+    <license>
+      <name>Public Bees License</name>
+      <key>bees</key>
+      <library>Bees Lib</library>
+    </license>
+    <!-- custom license with url -->
+    <license>
+      <name>Other license</name>
+      <url>http://www.beegifs.com/license.txt</url>
+    </license>
+  </licenses>
+
+  <ignore>
+    <dependency>
+      <groupId.com.oprah.bees</groupId>
+      <artifactId>bees</artifactId>
+    </dependency>
+  </ignore>
+
+  <aliases>
+    <alias>
+      <key>apache2</key>
+      <alias>Apache 2</alias>
+    </alias> 
+    <alias>
+      <name>Bees License</name>      
+      <aliases>
+        <item>Beees License</item>
+        <item>Beeees License</item>
+      </aliases>
+    </alias>
+  </alises>
+</configure>
+```
 
 **Sending Feedback**
 

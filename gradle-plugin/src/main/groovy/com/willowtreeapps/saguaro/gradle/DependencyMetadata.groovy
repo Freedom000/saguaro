@@ -1,7 +1,5 @@
 package com.willowtreeapps.saguaro.gradle
-
 import groovy.transform.Canonical
-
 /**
  * Dependency metadata. Contains:
  * Dependency name, license metadata list.

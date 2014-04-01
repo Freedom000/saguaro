@@ -10,3 +10,11 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+uploadArchives {
+    repositories.mavenDeployer { maven(pom) }
+}
+
+install {
+    repositories.mavenInstaller { maven(pom) }
+}
