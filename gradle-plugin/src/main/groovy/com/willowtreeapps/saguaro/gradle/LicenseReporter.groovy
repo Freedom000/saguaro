@@ -1,6 +1,8 @@
 package com.willowtreeapps.saguaro.gradle
 import com.google.common.collect.HashMultimap
 import groovy.xml.MarkupBuilder
+import org.gradle.api.logging.Logger
+
 /**
  * License file reporter.
  */
@@ -11,8 +13,9 @@ class LicenseReporter {
      * @param dependencyMetadataSet set with dependencies
      * @param fileName report file name
      */
-    public void generate(Set<DependencyMetadata> dependencyMetadataSet, File outputDir, String resourceName) {
-        MarkupBuilder xml = getMarkupBuilder(new File(outputDir, "values/" + resourceName + ".xml"))
+    public void generate(Set<DependencyMetadata> dependencyMetadataSet, File outputDir, String resourceName, Logger logger) {
+        File outputFile = new File(outputDir, "values/" + resourceName + ".xml")
+        MarkupBuilder xml = getMarkupBuilder(outputFile)
         HashMultimap<String, DependencyMetadata> licensesMap = getLicenseMap(dependencyMetadataSet)
 
         List<String> nonBuiltIn = []
@@ -44,15 +47,18 @@ class LicenseReporter {
                 }
             }
         }
+
+        logger.info("Created resource: " + outputFile)
     }
 
-    private void downloadLicense(String key, LicenseMetadata license, File output) {
+    private void downloadLicense(String key, LicenseMetadata license, File output, Logger logger) {
         File path = new File(output, "raw/${key}.txt")
         path.parentFile.mkdirs()
         URL url = new URL(license.url)
         path.withOutputStream { out ->
             url.withInputStream { is ->
                 out << is
+                logger.info("Downloaded License: " + license.name + " to " + path);
             }
         }
     }

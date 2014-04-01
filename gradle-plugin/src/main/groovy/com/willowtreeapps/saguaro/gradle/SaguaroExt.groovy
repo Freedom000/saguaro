@@ -11,7 +11,7 @@ class SaguaroExt {
      * differently
      */
     Map<Object, List<Object>> aliases = [
-            (apache2): ['Apache License Version 2.0'],
+            (apache2): ['Apache License Version 2.0', 'Apache 2.0 License'],
             (mit): ['Mit License', 'MIT']
     ]
 

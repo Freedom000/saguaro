@@ -89,7 +89,7 @@ public class LicenseReporter {
             out = new BufferedOutputStream(new FileOutputStream(path));
 
             IOUtil.copy(in, out);
-            log.info("Downloaded LicenseInfo: " + license.getName() + " to " + path);
+            log.info("Downloaded License: " + license.getName() + " to " + path);
         } finally {
             if (in != null) in.close();
             if (out != null) out.close();

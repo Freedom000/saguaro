@@ -61,7 +61,7 @@ public class SaguaroGenerate extends DefaultTask {
         def reporter = new LicenseReporter()
 
         // Generate report that groups dependencies
-        reporter.generate(dependencyLicensesSet(), outputDir, resourceName)
+        reporter.generate(dependencyLicensesSet(), outputDir, resourceName, logger)
     }
 
     static LicenseMetadata resolveAliasKey(key) {

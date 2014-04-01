@@ -26,11 +26,11 @@ android {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-    compile project(':library')
-
+    compile "com.willowtreeapps.saguaro:saguaro-android:$version"
     compile "com.actionbarsherlock:actionbarsherlock:4.4.0@aar"
     compile 'com.android.support:support-v4:19.0.+'
     compile "joda-time:joda-time:2.2"
@@ -40,9 +40,8 @@ saguaro {
     def bees = [name: 'Bees']
 
     alias apache2, 'Apache 2'
-    license apache2, 'Saguaro'
     license bees, 'Bees Lib'
     license mit, ['Mit 1', 'Mit 2', 'Mit 3', 'Mit 4']
     license bsd2, ['BSD 1', 'BSD 2', 'BSD 3']
-    ignore "com.willowtreeapps.saguaro:library:$version"
+    // ignore 'com.example.bees:lib-to-ignore:1.0'
 }

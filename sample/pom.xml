@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sample</artifactId>
-    <name>saguaro-android Sample</name>
+    <name>Saguaro (Sample)</name>
     <packaging>apk</packaging>
 
     <parent>
-        <groupId>com.willowtreeapps.saguaro.android</groupId>
+        <groupId>com.willowtreeapps.saguaro</groupId>
         <artifactId>parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -40,8 +40,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.willowtreeapps.saguaro.android</groupId>
-            <artifactId>library</artifactId>
+            <groupId>com.willowtreeapps.saguaro</groupId>
+            <artifactId>saguaro-android</artifactId>
             <version>${project.version}</version>
             <type>aar</type>
         </dependency>
@@ -140,12 +140,12 @@
                             </libraries>
                         </license>
                     </licenses>
-                    <ignore>
+<!--                    <ignore>
                         <dependency>
-                            <groupId>com.willowtreeapps.saguaro.android</groupId>
-                            <artifactId>library</artifactId>
+                            <groupId>com.example.bees</groupId>
+                            <artifactId>library-to-ignore</artifactId>
                         </dependency>
-                    </ignore>
+                    </ignore>-->
                 </configuration>
             </plugin>
         </plugins>

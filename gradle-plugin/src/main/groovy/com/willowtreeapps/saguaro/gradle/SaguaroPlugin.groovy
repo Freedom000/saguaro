@@ -19,8 +19,6 @@ class SaguaroPlugin implements Plugin<Project> {
                 includeDependencies = ext.includeDependencies
                 ignoreDependencies = ext.ignoreDependencies
             }
-
-            project.android.sourceSets.main.res.srcDirs += buildOutputDir
         }
     }
 }
