@@ -238,7 +238,7 @@ Configuration is very similar, albeit with more verbose xml.
 
   <ignore>
     <dependency>
-      <groupId.com.oprah.bees</groupId>
+      <groupId>.com.oprah.bees</groupId>
       <artifactId>bees</artifactId>
     </dependency>
   </ignore>
