@@ -2,6 +2,10 @@ package com.willowtreeapps.saguaro.maven;
 
 import org.apache.maven.plugins.annotations.Parameter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
 * User: evantatarka
 * Date: 3/31/14
@@ -12,61 +16,31 @@ public class License {
     private String name;
 
     @Parameter
+    private String key;
+
+    @Parameter
     private String url;
 
     @Parameter
-    private String key;
+    private List<String> libraries = new ArrayList<String>();
 
-    public static License withUrl(String name, String url) {
-        return new License(name, null, url);
-    }
+    @Parameter
+    private String library;
 
-    public static License withKey(String name, String key) {
-        return new License(name, key, null);
-    }
+    private LicenseInfo licenseInfo;
 
-    public License() {
-
-    }
-
-    public License(String name, String key, String url) {
-        this.name = name;
-        this.url = url;
-        this.key = key;
-    }
-
-    public String getKey() {
-        if (key == null && name != null) {
-            key = name.replace(' ', '_').replaceAll("[^a-zA-Z0-9_]", "").toLowerCase();
+    public LicenseInfo getLicenseInfo() {
+        if (licenseInfo == null && (name != null || key != null)) {
+            licenseInfo = new LicenseInfo(name, key, url);
         }
-        return key;
+        return licenseInfo;
     }
 
-    public String getName() {
-        if (name == null && key != null && SaguaroMojo.LICENSES.containsKey(key)) {
-            name = SaguaroMojo.LICENSES.get(key).getName();
+    public List<String> getLibraries() {
+        if (libraries.isEmpty() && library != null) {
+            libraries.add(library);
         }
-        return name;
-    }
 
-    public String getUrl() {
-        return url;
-    }
-
-    @Override
-    public int hashCode() {
-        return getKey().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof License)) return false;
-        License other = (License) obj;
-        return getKey().equals(other.getKey());
-    }
-
-    @Override
-    public String toString() {
-        return "License(name: " + getName() + ", key: " + getKey() + ", url: " + getUrl() + ")";
+        return Collections.unmodifiableList(libraries);
     }
 }

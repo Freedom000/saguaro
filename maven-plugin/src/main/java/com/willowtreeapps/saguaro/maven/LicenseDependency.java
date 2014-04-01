@@ -10,9 +10,9 @@ import java.util.Set;
  */
 public class LicenseDependency {
     private String name;
-    private Set<License> licenses;
+    private Set<LicenseInfo> licenses;
 
-    public LicenseDependency(String name, Set<License> licenses) {
+    public LicenseDependency(String name, Set<LicenseInfo> licenses) {
         this.name = name;
         this.licenses = licenses;
     }
@@ -21,7 +21,7 @@ public class LicenseDependency {
         return name;
     }
 
-    public Set<License> getLicenses() {
+    public Set<LicenseInfo> getLicenses() {
         return Collections.unmodifiableSet(licenses);
     }
 

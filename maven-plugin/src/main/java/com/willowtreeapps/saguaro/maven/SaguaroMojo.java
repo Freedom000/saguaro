@@ -31,7 +31,7 @@ public class SaguaroMojo extends AbstractMojo {
     private List<Dependency> ignore = new ArrayList<Dependency>();
 
     @Parameter
-    private List<LicenseEntry> licenses = new ArrayList<LicenseEntry>();
+    private List<License> licenses = new ArrayList<License>();
 
     @Parameter
     private List<Alias> aliases = new ArrayList<Alias>();
@@ -78,21 +78,33 @@ public class SaguaroMojo extends AbstractMojo {
             }
         }
 
-        aliases.addAll(DEFAULT_ALIASES);
+        List<Alias> allAliases = new ArrayList<Alias>();
+
+        for (Alias defaultAlias : DEFAULT_ALIASES) {
+            int index = aliases.indexOf(defaultAlias);
+            if (index >= 0) {
+                Alias alias = aliases.remove(index);
+                allAliases.add(new Alias(defaultAlias.getLicenseInfo(), defaultAlias.getAliases(), alias.getAliases()));
+            } else {
+                allAliases.add(defaultAlias);
+            }
+        }
+
+        allAliases.addAll(aliases);
 
         ProjectHelper projectHelper = new ProjectHelper(project, projectBuilder, remoteRepositories, localRepository);
-        LicenseResolver licenseResolver = new LicenseResolver(projectHelper, includeDependencies, aliases, licenses, ignore);
+        LicenseResolver licenseResolver = new LicenseResolver(projectHelper, includeDependencies, allAliases, licenses, ignore);
 
         Set<LicenseDependency> dependencies = licenseResolver.resolveLicenseDependencies();
         LicenseReporter reporter = new LicenseReporter();
         reporter.generate(dependencies, outputDir, resourceName, getLog());
     }
 
-    static final Map<String, License> LICENSES = ImmutableMap.of(
-            "apache2", License.withKey("Apache License, Version 2.0", "apache2"),
-            "mit", License.withKey("Mit License (MIT)", "mit"),
-            "bsd2", License.withKey("BSD 2-Clause License", "bsd2"),
-            "ccpl3", License.withKey("Creative Commons Public License, Attribution 3.0", "ccpl3")
+    static final Map<String, LicenseInfo> LICENSES = ImmutableMap.of(
+            "apache2", LicenseInfo.withKey("Apache License, Version 2.0", "apache2"),
+            "mit", LicenseInfo.withKey("Mit License (MIT)", "mit"),
+            "bsd2", LicenseInfo.withKey("BSD 2-Clause License", "bsd2"),
+            "ccpl3", LicenseInfo.withKey("Creative Commons Public License, Attribution 3.0", "ccpl3")
     );
 
     static final List<Alias> DEFAULT_ALIASES = Arrays.asList(

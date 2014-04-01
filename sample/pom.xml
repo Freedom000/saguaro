@@ -108,25 +108,21 @@
                 <configuration>
                     <aliases>
                         <alias>
-                            <license>
-                                <key>apache2</key>
-                            </license>
-                            <aliases>
-                                <item>Apache 2</item>
-                            </aliases>
+                            <key>apache2</key>
+                            <alias>Apache 2</alias>
                         </alias>
                     </aliases>
                     <licenses>
-                        <item>
+                        <license>
                             <key>apache2</key>
                             <library>Saguaro</library>
-                        </item>
-                        <item>
+                        </license>
+                        <license>
                             <name>Public Bees License</name>
                             <key>bees</key>
                             <library>Bees Lib</library>
-                        </item>
-                        <item>
+                        </license>
+                        <license>
                             <key>mit</key>
                             <libraries>
                                 <item>Mit 1</item>
@@ -134,16 +130,22 @@
                                 <item>Mit 3</item>
                                 <item>Mit 4</item>
                             </libraries>
-                        </item>
-                        <item>
+                        </license>
+                        <license>
                             <key>bsd2</key>
                             <libraries>
                                 <item>BSD 1</item>
                                 <item>BSD 2</item>
                                 <item>BSD 3</item>
                             </libraries>
-                        </item>
+                        </license>
                     </licenses>
+                    <ignore>
+                        <dependency>
+                            <groupId>com.willowtreeapps.saguaro.android</groupId>
+                            <artifactId>library</artifactId>
+                        </dependency>
+                    </ignore>
                 </configuration>
             </plugin>
         </plugins>

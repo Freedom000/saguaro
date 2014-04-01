@@ -37,7 +37,7 @@ public class LicenseReporter {
                 if (!SaguaroMojo.isBuiltIn(entry.getKey())) {
                     nonBuiltIn.add(entry.getKey());
                     for (LicenseDependency dependency : entry.getValue()) {
-                        License license = dependency.getLicenses().iterator().next();
+                        LicenseInfo license = dependency.getLicenses().iterator().next();
                         xml.elem("string").attr("name", license.getKey() + "_name").text(license.getName());
                         if (license.getUrl() != null) {
                             try {
@@ -77,7 +77,7 @@ public class LicenseReporter {
         }
     }
 
-    private void downloadLicense(String key, License license, File outputDir, Log log) throws IOException {
+    private void downloadLicense(String key, LicenseInfo license, File outputDir, Log log) throws IOException {
         File path = new File(outputDir, "raw/" + key + ".txt");
         path.getParentFile().mkdirs();
         URL url = new URL(license.getUrl());
@@ -89,7 +89,7 @@ public class LicenseReporter {
             out = new BufferedOutputStream(new FileOutputStream(path));
 
             IOUtil.copy(in, out);
-            log.info("Downloaded License: " + license.getName() + " to " + path);
+            log.info("Downloaded LicenseInfo: " + license.getName() + " to " + path);
         } finally {
             if (in != null) in.close();
             if (out != null) out.close();
@@ -100,7 +100,7 @@ public class LicenseReporter {
         HashMultimap<String, LicenseDependency> licenseMap = HashMultimap.create();
 
         for (LicenseDependency dependency : dependencies) {
-            for (License license : dependency.getLicenses()) {
+            for (LicenseInfo license : dependency.getLicenses()) {
                 licenseMap.put(license.getKey(), dependency);
             }
         }
