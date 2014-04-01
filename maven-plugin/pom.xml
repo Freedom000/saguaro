@@ -64,8 +64,11 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>run</id>
-                        <phase>generate-resources</phase>
+                        <id>default-descriptor</id>
+                        <goals>
+                            <goal>descriptor</goal>
+                        </goals>
+                        <phase>process-classes</phase>
                     </execution>
                 </executions>
             </plugin>
