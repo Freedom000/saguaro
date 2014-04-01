@@ -124,7 +124,7 @@ Start by adding the following to your `build.gradle`
 buildscript {
   repositories { mavenCentral() }
   dependencies {
-    classpath "com.willowtreeapps.saguaro:plugin:1.0.0"
+    classpath "com.willowtreeapps.saguaro:gradle-plugin:1.0.0"
   }
 }
 
