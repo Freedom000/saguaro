@@ -11,13 +11,13 @@ class SaguaroPlugin implements Plugin<Project> {
         project.afterEvaluate {
             File buildOutputDir = project.android.sourceSets.main.res.srcDirs.iterator().next()
 
-            project.task("saguaroGenerate", type: SaguaroGenerate) {
+            project.task("saguaroGenerate", type: SaguaroTask) {
                 outputDir = buildOutputDir
                 resourceName = ext.resourceName
                 licenses = ext.licenses
                 aliases = ext.aliases
+                ignore = ext.ignore
                 includeDependencies = ext.includeDependencies
-                ignoreDependencies = ext.ignoreDependencies
             }
         }
     }

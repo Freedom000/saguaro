@@ -15,10 +15,10 @@ import static com.willowtreeapps.saguaro.plugin.Alias.getAliasesWithDefaults;
  * Date: 4/2/14
  * Time: 10:12 AM
  */
-public class SaguaroPlugin {
+public class SaguaroGenerate {
     private LicenseResolver licenseResolver;
 
-    public SaguaroPlugin(LicenseResolver licenseResolver) {
+    public SaguaroGenerate(LicenseResolver licenseResolver) {
         this.licenseResolver = licenseResolver;
     }
 

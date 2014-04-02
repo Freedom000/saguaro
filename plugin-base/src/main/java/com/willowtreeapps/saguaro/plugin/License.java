@@ -38,6 +38,15 @@ public class License {
 
     private LicenseInfo licenseInfo;
 
+    public License() {
+
+    }
+
+    public License(LicenseInfo licenseInfo, List<String> libraries) {
+        this.licenseInfo = licenseInfo;
+        this.libraries = libraries;
+    }
+
     public LicenseInfo getLicenseInfo() {
         if (licenseInfo == null && (name != null || key != null)) {
             licenseInfo = new LicenseInfo(name, key, url);

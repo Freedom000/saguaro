@@ -70,10 +70,10 @@ public class SaguaroMojo extends AbstractMojo implements SaguaroConfig {
 
         ProjectHelper projectHelper = new ProjectHelper(project, projectBuilder, remoteRepositories, localRepository);
         MavenLicenseResolver licenseResolver = new MavenLicenseResolver(projectHelper);
-        SaguaroPlugin plugin = new SaguaroPlugin(licenseResolver);
+        SaguaroGenerate generate = new SaguaroGenerate(licenseResolver);
 
         try {
-            plugin.execute(this, new MavenLog(getLog()));
+            generate.execute(this, new MavenLog(getLog()));
         } catch (IOException e) {
             throw new MojoExecutionException("Cannot create resource files", e);
         } catch (PluginException e) {

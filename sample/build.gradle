@@ -43,5 +43,5 @@ saguaro {
     license bees, 'Bees Lib'
     license mit, ['Mit 1', 'Mit 2', 'Mit 3', 'Mit 4']
     license bsd2, ['BSD 1', 'BSD 2', 'BSD 3']
-    // ignore 'com.example.bees:lib-to-ignore:1.0'
+    // ignore 'com.example.bees:lib-to-ignore'
 }

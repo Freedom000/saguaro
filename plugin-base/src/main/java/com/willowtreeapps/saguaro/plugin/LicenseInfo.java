@@ -19,12 +19,20 @@ public class LicenseInfo {
     @Parameter
     private String key;
 
+    public static LicenseInfo withName(String name) {
+        return new LicenseInfo(name, null, null);
+    }
+
     public static LicenseInfo withUrl(String name, String url) {
         return new LicenseInfo(name, null, url);
     }
 
     public static LicenseInfo withKey(String name, String key) {
         return new LicenseInfo(name, key, null);
+    }
+
+    public static LicenseInfo withKey(String key) {
+        return new LicenseInfo(null, key, null);
     }
 
     public LicenseInfo() {
