@@ -1,9 +1,8 @@
 package com.willowtreeapps.saguaro.maven;
 
-import com.google.common.collect.ImmutableMap;
 import com.willowtreeapps.saguaro.maven.util.ProjectHelper;
+import com.willowtreeapps.saguaro.plugin.*;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -17,7 +16,11 @@ import org.apache.maven.project.MavenProjectBuilder;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 import java.io.File;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -26,9 +29,9 @@ import java.util.*;
  * Time: 11:00 AM
  */
 @Mojo(name = "generate", requiresDependencyResolution = ResolutionScope.COMPILE)
-public class SaguaroMojo extends AbstractMojo {
+public class SaguaroMojo extends AbstractMojo implements SaguaroConfig {
     @Parameter
-    private List<Dependency> ignore = new ArrayList<Dependency>();
+    private Set<Dependency> ignore = new LinkedHashSet<Dependency>();
 
     @Parameter
     private List<License> licenses = new ArrayList<License>();
@@ -36,7 +39,7 @@ public class SaguaroMojo extends AbstractMojo {
     @Parameter
     private List<Alias> aliases = new ArrayList<Alias>();
 
-    @Parameter(defaultValue = "saguaro_plugin_config")
+    @Parameter(defaultValue = Defaults.RESOURCE_NAME)
     private String resourceName;
 
     @Parameter
@@ -65,6 +68,46 @@ public class SaguaroMojo extends AbstractMojo {
             return;
         }
 
+        ProjectHelper projectHelper = new ProjectHelper(project, projectBuilder, remoteRepositories, localRepository);
+        MavenLicenseResolver licenseResolver = new MavenLicenseResolver(projectHelper);
+        SaguaroPlugin plugin = new SaguaroPlugin(licenseResolver);
+
+        try {
+            plugin.execute(this, new MavenLog(getLog()));
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot create resource files", e);
+        } catch (PluginException e) {
+            throw new MojoExecutionException("Cannot create resource files", e);
+        }
+    }
+
+    @Override
+    public Set<Dependency> getIgnore() {
+        return ignore;
+    }
+
+    @Override
+    public List<License> getLicenses() {
+        return licenses;
+    }
+
+    @Override
+    public List<Alias> getAliases() {
+        return aliases;
+    }
+
+    @Override
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    @Override
+    public boolean includeDependencies() {
+        return includeDependencies;
+    }
+
+    @Override
+    public File getOutputDir() {
         File outputDir = new File(project.getBasedir(), "res");
 
         List<Plugin> plugins =  project.getBuildPlugins();
@@ -78,41 +121,6 @@ public class SaguaroMojo extends AbstractMojo {
             }
         }
 
-        List<Alias> allAliases = new ArrayList<Alias>();
-
-        for (Alias defaultAlias : DEFAULT_ALIASES) {
-            int index = aliases.indexOf(defaultAlias);
-            if (index >= 0) {
-                Alias alias = aliases.remove(index);
-                allAliases.add(new Alias(defaultAlias.getLicenseInfo(), defaultAlias.getAliases(), alias.getAliases()));
-            } else {
-                allAliases.add(defaultAlias);
-            }
-        }
-
-        allAliases.addAll(aliases);
-
-        ProjectHelper projectHelper = new ProjectHelper(project, projectBuilder, remoteRepositories, localRepository);
-        LicenseResolver licenseResolver = new LicenseResolver(projectHelper, includeDependencies, allAliases, licenses, ignore);
-
-        Set<LicenseDependency> dependencies = licenseResolver.resolveLicenseDependencies();
-        LicenseReporter reporter = new LicenseReporter();
-        reporter.generate(dependencies, outputDir, resourceName, getLog());
-    }
-
-    static final Map<String, LicenseInfo> LICENSES = ImmutableMap.of(
-            "apache2", LicenseInfo.withKey("Apache License, Version 2.0", "apache2"),
-            "mit", LicenseInfo.withKey("Mit License (MIT)", "mit"),
-            "bsd2", LicenseInfo.withKey("BSD 2-Clause License", "bsd2"),
-            "ccpl3", LicenseInfo.withKey("Creative Commons Public License, Attribution 3.0", "ccpl3")
-    );
-
-    static final List<Alias> DEFAULT_ALIASES = Arrays.asList(
-            new Alias(LICENSES.get("apache2"), "Apache License Version 2.0", "Apache 2.0 License"),
-            new Alias(LICENSES.get("mit"), "Mit License", "MIT")
-    );
-
-    static boolean isBuiltIn(String key) {
-        return LICENSES.containsKey(key);
+        return outputDir;
     }
 }

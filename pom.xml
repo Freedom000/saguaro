@@ -28,8 +28,9 @@
 
     <modules>
         <module>library</module>
-        <module>sample</module>
+        <module>plugin-base</module>
         <module>maven-plugin</module>
+        <module>sample</module>
     </modules>
 
     <issueManagement>

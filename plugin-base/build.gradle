@@ -1,0 +1,12 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.apache.maven.plugin-tools:maven-plugin-annotations:3.2"
+    compile "com.google.guava:guava-collections:r03"
+    compile "com.jamesmurty.utils:java-xmlbuilder:1.0"
+}

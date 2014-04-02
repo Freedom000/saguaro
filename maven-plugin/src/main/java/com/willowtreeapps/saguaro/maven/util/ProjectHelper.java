@@ -1,8 +1,8 @@
 package com.willowtreeapps.saguaro.maven.util;
 
+import com.willowtreeapps.saguaro.plugin.PluginException;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
@@ -32,11 +32,11 @@ public class ProjectHelper {
         return project.getDependencyArtifacts();
     }
 
-    public MavenProject buildFromRepository(Artifact artifact) throws MojoExecutionException {
+    public MavenProject buildFromRepository(Artifact artifact) throws PluginException {
         try {
             return projectBuilder.buildFromRepository(artifact, remoteRepositories, localRepository, true);
         } catch (ProjectBuildingException e) {
-            throw new MojoExecutionException( "Unable to build project: " + artifact.getDependencyConflictId(), e);
+            throw new PluginException( "Unable to build project: " + artifact.getDependencyConflictId(), e);
         }
     }
 

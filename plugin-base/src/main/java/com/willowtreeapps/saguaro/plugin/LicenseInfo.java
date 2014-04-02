@@ -1,6 +1,8 @@
-package com.willowtreeapps.saguaro.maven;
+package com.willowtreeapps.saguaro.plugin;
 
 import org.apache.maven.plugins.annotations.Parameter;
+
+import static com.willowtreeapps.saguaro.plugin.License.LICENSES;
 
 /**
 * User: evantatarka
@@ -43,8 +45,8 @@ public class LicenseInfo {
     }
 
     public String getName() {
-        if (name == null && key != null && SaguaroMojo.LICENSES.containsKey(key)) {
-            name = SaguaroMojo.LICENSES.get(key).getName();
+        if (name == null && key != null && LICENSES.containsKey(key)) {
+            name = LICENSES.get(key).getName();
         }
         return name;
     }
