@@ -3,17 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>saguao-plugin-base</artifactId>
+    <artifactId>saguaro-plugin-base</artifactId>
     <name>Saguaro (Plugin Base)</name>
     <packaging>jar</packaging>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
 
     <parent>
         <groupId>com.willowtreeapps.saguaro</groupId>

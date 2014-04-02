@@ -6,6 +6,8 @@ import com.willowtreeapps.saguaro.plugin.Dependency
 import com.willowtreeapps.saguaro.plugin.License
 import com.willowtreeapps.saguaro.plugin.LicenseInfo
 
+import static com.willowtreeapps.saguaro.plugin.License.LICENSES
+
 class SaguaroExt {
     /**
      * Additional licenses to add
@@ -91,10 +93,10 @@ class SaguaroExt {
         resourceName = name
     }
 
-    static final LicenseInfo apache2 = [name: 'Apache License, Version 2.0', key: 'apache2']
-    static final LicenseInfo mit = [name: 'Mit License (MIT)', key: 'mit']
-    static final LicenseInfo bsd2 = [name: 'BSD 2-Clause License', key: 'bsd2']
-    static final LicenseInfo ccpl3 = [name: 'Creative Commons Public License, Attribution 3.0', key: 'ccpl3']
+    static final LicenseInfo apache2 = LICENSES.get("apache2")
+    static final LicenseInfo mit = LICENSES.get("mit")
+    static final LicenseInfo bsd2 = LICENSES.get("bsd2")
+    static final LicenseInfo ccpl3 = LICENSES.get("ccpl3")
 
     static boolean isBuiltIn(String key) {
         return key.equals(apache2.key) || key.equals(mit.key) || key.equals(bsd2.key) || key.equals(ccpl3.key)

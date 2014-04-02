@@ -1,3 +1,4 @@
 include 'library', 'sample', 'plugin-base', 'gradle-plugin'
 
 project(':library').name = 'saguaro-android'
+project(':plugin-base').name = 'saguaro-plugin-base'

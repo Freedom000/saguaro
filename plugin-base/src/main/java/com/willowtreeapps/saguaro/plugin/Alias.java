@@ -108,6 +108,7 @@ public class Alias {
         }
 
         allAliases.addAll(otherAliases);
+
         return allAliases;
     }
 }

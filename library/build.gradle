@@ -14,10 +14,12 @@ android {
     }
 }
 
+ext.displayName = 'Saguaro'
+
 uploadArchives {
-    repositories.mavenDeployer { maven(pom) }
+    repositories.mavenDeployer { maven(pom, project.displayName) }
 }
 
 install {
-    repositories.mavenInstaller { maven(pom) }
+    repositories.mavenInstaller { maven(pom, project.displayName) }
 }

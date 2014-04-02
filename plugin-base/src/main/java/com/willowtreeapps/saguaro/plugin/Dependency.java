@@ -28,6 +28,14 @@ public class Dependency {
         return this.groupId.equals(groupId) && this.artifactId.equals(artifactId);
     }
 
+    public String getName() {
+        return artifactId;
+    }
+
+    public String getGroup() {
+        return groupId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
