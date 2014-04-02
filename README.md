@@ -35,7 +35,7 @@ You can enable a "full" version text (`Version 1.2.3 build 45`) by declaring the
     saguaro:saguaro__isFullVersionText="false" />
 ```
 
-You can also programmatically get the version information as a `String`:
+You can also pragmatically get the version information as a `String`:
 
 ```java
 Saguaro.getMinVersionString(mContext);
@@ -112,7 +112,7 @@ In your `saguaro_config.xml`, add the following to define your own licenses.
 </string-array>
 ```
 
-Then put the contents of you liscense in `res/raw/bees.txt`
+Then put the contents of you license in `res/raw/bees.txt`
 
 **Gradle plugin**
 
@@ -165,12 +165,12 @@ saguaro {
 }
 ```
 
-You can also ignore dependecies in case you don't wan't to them to show up or 
-you want to explecitly set their license.
+You can also ignore dependencies in case you don't want to them to show up or
+you want to explicitly set their license.
 
 ```groovy
 saguaro {
-  ignore 'com.oprah.bees:bees:1.0-BEES'
+  ignore 'com.oprah.bees:bees'
 }
 ```
 
@@ -190,7 +190,7 @@ license.
 
 **Maven Plugin**
 
-Threre is also a maven plugin, which works the same way as the gradle plugin.
+There is also a maven plugin, which works the same way as the gradle plugin.
 
 ```xml
 <build>
