@@ -8,11 +8,8 @@
         <item>BSD 1</item>
         <item>BSD 2</item>
     </string-array>
-    <string-array name="apache_license_version_20_projects">
-        <item>Saguaro</item>
-    </string-array>
-    <string name="apache_license_version_20_name">Apache License, Version 2.0</string>
     <string-array name="apache2_projects">
+        <item>Saguaro</item>
         <item>ActionBarSherlock</item>
         <item>Joda time</item>
     </string-array>
@@ -24,6 +21,5 @@
     </string-array>
     <string-array name="saguaro_licenses">
         <item>bees</item>
-        <item>apache_license_version_20</item>
     </string-array>
 </resources>

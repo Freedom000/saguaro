@@ -75,6 +75,10 @@ public class SaguaroGenerate {
 
     private LicenseInfo applyAliases(List<Alias> aliases, LicenseInfo license) {
         for (Alias alias : aliases) {
+            if (alias.getLicenseInfo().getName().equals(license.getName())) {
+                return alias.getLicenseInfo();
+            }
+
             for (String aliasName : alias.getAliases()) {
                 if (aliasName.equals(license.getName())) {
                     return alias.getLicenseInfo();
