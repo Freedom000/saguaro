@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.willowtreeapps.saguaro</groupId>
-            <artifactId>saguao-plugin-base</artifactId>
+            <artifactId>saguaro-plugin-base</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
