@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2014 WillowTree Apps Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.willowtreeapps.saguaro.maven;
 
 import com.willowtreeapps.saguaro.maven.util.ProjectHelper;
@@ -22,14 +37,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-
-/**
- * User: evantatarka
- * Date: 3/31/14
- * Time: 11:00 AM
- */
 @Mojo(name = "generate", requiresDependencyResolution = ResolutionScope.COMPILE)
-public class SaguaroMojo extends AbstractMojo implements SaguaroConfig {
+public class SaguaroMojo extends AbstractMojo {
     @Parameter
     private Set<Dependency> ignore = new LinkedHashSet<Dependency>();
 
@@ -69,11 +78,21 @@ public class SaguaroMojo extends AbstractMojo implements SaguaroConfig {
         }
 
         ProjectHelper projectHelper = new ProjectHelper(project, projectBuilder, remoteRepositories, localRepository);
+        LicenseGenerator licenseGenerator = new LicenseResourceGenerator();
         MavenLicenseResolver licenseResolver = new MavenLicenseResolver(projectHelper);
-        SaguaroGenerate generate = new SaguaroGenerate(licenseResolver);
+        SaguaroConfig config = SaguaroConfig.of()
+                .ignore(ignore)
+                .licenses(licenses)
+                .aliases(aliases)
+                .resourceName(resourceName)
+                .includeDependencies(includeDependencies)
+                .outputDir(getOutputDir())
+                .build();
+
+        SaguaroGenerate generate = new SaguaroGenerate(licenseGenerator, licenseResolver);
 
         try {
-            generate.execute(this, new MavenLog(getLog()));
+            generate.execute(config, new MavenLog(getLog()));
         } catch (IOException e) {
             throw new MojoExecutionException("Cannot create resource files", e);
         } catch (PluginException e) {
@@ -81,33 +100,7 @@ public class SaguaroMojo extends AbstractMojo implements SaguaroConfig {
         }
     }
 
-    @Override
-    public Set<Dependency> getIgnore() {
-        return ignore;
-    }
-
-    @Override
-    public List<License> getLicenses() {
-        return licenses;
-    }
-
-    @Override
-    public List<Alias> getAliases() {
-        return aliases;
-    }
-
-    @Override
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    @Override
-    public boolean includeDependencies() {
-        return includeDependencies;
-    }
-
-    @Override
-    public File getOutputDir() {
+    private File getOutputDir() {
         File outputDir = new File(project.getBasedir(), "res");
 
         List<Plugin> plugins =  project.getBuildPlugins();

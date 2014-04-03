@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2014 WillowTree Apps Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.willowtreeapps.saguaro.gradle
 import com.willowtreeapps.saguaro.plugin.LicenseDependency
 import com.willowtreeapps.saguaro.plugin.LicenseInfo
@@ -11,9 +26,7 @@ import org.gradle.api.artifacts.ResolvedArtifact
 
 import static com.google.common.base.Strings.isNullOrEmpty
 import static com.google.common.collect.Sets.newHashSet
-/**
- * License resolver for dependencies.
- */
+
 class GradleLicenseResolver implements LicenseResolver {
     private static final String DEFAULT_CONFIGURATION_TO_HANDLE = "compile"
 
@@ -110,7 +123,7 @@ class GradleLicenseResolver implements LicenseResolver {
 
             retrieveLicensesForDependency("$parentGroup:$parentName:$parentVersion", dependencyName, initialDependency)
         } else {
-            null
+            return new LicenseDependency(dependencyName, dependency, [] as Set)
         }
     }
 }
