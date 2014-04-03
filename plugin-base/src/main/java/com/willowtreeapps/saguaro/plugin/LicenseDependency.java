@@ -42,6 +42,10 @@ public class LicenseDependency {
         return new LicenseDependency(name, null, new LinkedHashSet<LicenseInfo>(Arrays.asList(licenses)));
     }
 
+    public static LicenseDependency of(String name, Dependency dependency, LicenseInfo...licenses) {
+        return new LicenseDependency(name, dependency, new LinkedHashSet<LicenseInfo>(Arrays.asList(licenses)));
+    }
+
     public String getName() {
         if (StringUtils.isEmpty(name) && dependency != null) {
             name = dependency.getName();

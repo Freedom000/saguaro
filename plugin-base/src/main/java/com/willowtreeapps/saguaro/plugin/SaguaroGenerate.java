@@ -94,7 +94,7 @@ public class SaguaroGenerate {
         return Sets.filter(dependencies, new Predicate<LicenseDependency>() {
             @Override
             public boolean apply(LicenseDependency dependency) {
-                return dependencies.isEmpty();
+                return dependency.getLicenses().isEmpty();
             }
         });
     }
