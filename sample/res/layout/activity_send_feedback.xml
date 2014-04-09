@@ -19,5 +19,10 @@
         <com.willowtreeapps.saguaro.android.widget.SendFeedbackTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <com.willowtreeapps.saguaro.android.widget.SendFeedbackTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is custom send feedback text!" />
     </LinearLayout>
 </ScrollView>

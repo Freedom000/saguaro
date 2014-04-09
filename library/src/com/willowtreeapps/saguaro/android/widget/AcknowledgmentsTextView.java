@@ -5,6 +5,7 @@ import com.willowtreeapps.saguaro.android.Saguaro;
 
 import android.content.Context;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -27,13 +28,16 @@ public class AcknowledgmentsTextView extends TextView {
     }
 
     private void refreshAcknowledgmentsText() {
-        SpannableString openSourceLink = Saguaro.makeLinkSpan(getContext().getString(R.string.saguaro__acknowledgments),
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Saguaro.showOpenSourceDialog(getContext());
-                    }
-                });
+        String myText = getText().toString();
+        if (TextUtils.isEmpty(myText)) {
+            myText = getContext().getString(R.string.saguaro__acknowledgments);
+        }
+        SpannableString openSourceLink = Saguaro.makeLinkSpan(myText, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Saguaro.showOpenSourceDialog(getContext());
+            }
+        });
         setText(openSourceLink);
         setFocusable(false);
         Saguaro.makeLinksFocusable(this);

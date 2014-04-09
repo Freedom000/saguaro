@@ -5,6 +5,7 @@ import com.willowtreeapps.saguaro.android.Saguaro;
 
 import android.content.Context;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -27,13 +28,16 @@ public class SendFeedbackTextView extends TextView {
     }
 
     private void refreshSendFeedbackText() {
-        SpannableString sendFeedbackLink = Saguaro.makeLinkSpan(getContext().getString(R.string.saguaro__send_feedback),
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getContext().startActivity(Saguaro.getSendFeedbackIntent(getContext()));
-                    }
-                });
+        String myText = getText().toString();
+        if (TextUtils.isEmpty(myText)) {
+            myText = getContext().getString(R.string.saguaro__send_feedback);
+        }
+        SpannableString sendFeedbackLink = Saguaro.makeLinkSpan(myText, new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContext().startActivity(Saguaro.getSendFeedbackIntent(getContext()));
+            }
+        });
         setText(sendFeedbackLink);
         setFocusable(false);
         Saguaro.makeLinksFocusable(this);
