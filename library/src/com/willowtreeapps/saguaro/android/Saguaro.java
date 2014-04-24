@@ -61,7 +61,7 @@ public class Saguaro {
         return getVersionInfo(context, R.string.saguaro__min_version_text_dynamic);
     }
 
-    public static void showOpenSourceDialog(final Context context) {
+    public static AlertDialog showOpenSourceDialog(final Context context) {
         Resources resources = context.getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -132,9 +132,11 @@ public class Saguaro {
 
         TextView message = (TextView) dialog.findViewById(android.R.id.message);
         message.setMovementMethod(LinkMovementMethod.getInstance());
+
+	return dialog;
     }
 
-    private static void showLicenseDialog(Context context, int licenseTextId) {
+    private static AlertDialog showLicenseDialog(Context context, int licenseTextId) {
         String licenseText = "";
         try {
             licenseText = readRawToString(context.getResources(), licenseTextId);
@@ -153,7 +155,9 @@ public class Saguaro {
                     }
                 })
                 .setIcon(android.R.drawable.ic_menu_info_details);
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+	dialog.show();
+	return dialog;
     }
 
     private static String readRawToString(Resources resources, int rawId) throws IOException {
