@@ -58,7 +58,7 @@ public class Saguaro {
     }
 
     public static String getMinVersionString(Context context) {
-        return getVersionInfo(context, R.string.saguaro__min_version_text_dynamic);
+        return getVersionInfo(context, R.string.default_version_text_dynamic);
     }
 
     public static AlertDialog showOpenSourceDialog(final Context context) {

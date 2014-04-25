@@ -10,14 +10,14 @@ Try out the sample application on [Google Play][6].
          src="http://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
 </a>
 
-Usage
-=====
+Native Android Usage
+====================
 
 *For a working implementation of this project see the `sample/` folder.*
 
-**Version Information**
+**VersionTextView**
 
-You can declare a `VersionTextView` in your xml layout files to automatically populate the version information.  The class extends `TextView` so you can easily apply a custom `Typeface` or style.  By default, `VersionTextView` will display the version in the following format: `v1.2.3 b45`
+You can declare a `VersionTextView` in your xml layout files to automatically populate the version information.  The class extends `TextView` so you can easily apply a custom `Typeface` or style.  By default, `VersionTextView` will display the version in the following format: `v[MAJOR].[MINOR].[POINT].[BUILD]` (e.g. `v1.2.3.456`).
 
 ```xml
 <com.willowtreeapps.saguaro.android.widget.VersionTextView
@@ -25,7 +25,7 @@ You can declare a `VersionTextView` in your xml layout files to automatically po
     android:layout_height="wrap_content" />
 ```
 
-You can enable a "full" version text (`Version 1.2.3 build 45`) by declaring the `res-auto` namespace and adding an attribute like so:
+You can enable a "full" version text (`Version 1.2.3 build 456`) by declaring the `res-auto` namespace and adding an attribute like so:
 
 ```xml
 <com.willowtreeapps.saguaro.android.widget.VersionTextView
@@ -35,14 +35,16 @@ You can enable a "full" version text (`Version 1.2.3 build 45`) by declaring the
     saguaro:saguaro__isFullVersionText="false" />
 ```
 
-You can also pragmatically get the version information as a `String`:
+You can also override this dynamic behavior by defining your own `res/values` entry for `default_version_text_dynamic` (e.g. `<string name="default_version_text_dynamic">v%1$s b%2$s</string>`, which would yield `v1.2.3 b456`)
+
+You can also programmatically get the version information as a `String`:
 
 ```java
 Saguaro.getMinVersionString(mContext);
 Saguaro.getFullVersionString(mContext);
 ```
 
-**Acknowledgments/Licensing**
+**AcknowledgmentsTextView**
 
 For licensing information, add a `saguaro_config.xml` file in your `res/values` folder and populate your own values.
 
@@ -96,9 +98,9 @@ Saguaro.showOpenSourceDialog(mContext);
 
 **Adding your own license**
 
-In addition to the provided licenses you can add your own.
+In addition to the provided licenses, you can add your own.
 
-In your `saguaro_config.xml`, add the following to define your own licenses.
+In your `saguaro_config.xml`, add the following to define your own licenses:
 
 ```xml
 <string-array name="saguaro_licenses">
@@ -112,14 +114,39 @@ In your `saguaro_config.xml`, add the following to define your own licenses.
 </string-array>
 ```
 
-Then put the contents of you license in `res/raw/bees.txt`
+Then create the `res/raw/bees.txt` file and copy the raw text of your license into it.
 
-**Gradle plugin**
+**SendFeedbackTextView**
 
-You can also use the gradle plugin to define your licenses in your
-`build.gradle` and automatically fetch licenses from your dependencies.
+You can customize sending feedback with an e-mail address, and optionally a custom subject and body.
 
-Start by adding the following to your `build.gradle`
+```xml
+<string name="send_feedback_email">mytestemail@mytestdomain.com</string>
+<string name="send_feedback_optional_subject">Feature request from Oprah</string>
+<string name="send_feedback_optional_body">PLEASE ADD MORE BEES.</string>
+```
+
+Then declare a `SendFeedbackTextView` in your xml layout:
+
+```xml
+<com.willowtreeapps.saguaro.android.widget.SendFeedbackTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+```
+
+You can also obtain the `Intent` to send feedback programmatically:
+
+```java
+Saguaro.getSendFeedbackIntent(mContext);
+```
+
+Saguaro Gradle Plugin
+=====================
+
+You can use the Saguaro Gradle Plugin to define and automatically fetch licenses from your dependencies in your `build.gradle` config.
+
+Start by adding the following to your `build.gradle`:
+
 ```groovy
 buildscript {
   repositories { mavenCentral() }
@@ -135,12 +162,11 @@ saguaro {
 }
 ```
 
-Then run `gradle saguaroGenerate` to generate license resources based on your
-dependencies. However, there are a few issues that you will run into with this
-approach.
+Then run `gradle saguaroGenerate` to generate license resources based on your dependencies.
 
-The first problem is that some dependencies may have licenses but not define
-them in their pom file. In this case, you can add the library manually
+You may run into a few issues when generating the licenses.
+
+Some dependencies may have licenses that are not defined in their `pom.xml` file. In this case, you can add the library manually:
 
 ```groovy
 saguaro {
@@ -149,11 +175,9 @@ saguaro {
 }
 ```
 
-The constants `apache2`, `bsd2`, `mit`, and `ccpl3` are built in.
+The constants `apache2`, `bsd2`, `mit`, and `ccpl3` are built in to Saguaro.
 
-You can also define your own license that either downloads from a url or that
-you provide in `res/raw`. The below example downloads one license from
-`beegifs.com` and gets the other from `res/raw/second.txt`.
+You can also define your own license that either downloads from a URL or that you provide in `res/raw`. The below example downloads one license from `beegifs.com` and gets the other from `res/raw/second.txt`.
 
 ```groovy
 saguaro {
@@ -165,8 +189,7 @@ saguaro {
 }
 ```
 
-You can also ignore dependencies in case you don't want to them to show up or
-you want to explicitly set their license.
+You can also ignore dependencies in case you don't want them to show up or you want to explicitly set their license.
 
 ```groovy
 saguaro {
@@ -174,9 +197,7 @@ saguaro {
 }
 ```
 
-The other problem that you may run into is two dependencies with the same license,
-but that are named differently. In this case, you can consolidate them by using
-an alias.
+Another problem that you may run into is having multiple dependencies with the same license, but the licenses are named differently. In this case, you can consolidate them by using an alias.
 
 ```groovy
 saguaro {
@@ -185,12 +206,12 @@ saguaro {
 }
 ```
 
-This way any libraries labeled with the aliased names will show up as the same
-license.
+Any libraries labeled with the aliased names will show up as the same license.
 
-**Maven Plugin**
+Saguaro Maven Plugin
+====================
 
-There is also a maven plugin, which works the same way as the gradle plugin.
+There is also a Saguaro Maven Plugin, which works in a similar way to the Gradle plugin.
 
 ```xml
 <build>
@@ -211,7 +232,7 @@ You can then execute the `generate` goal.
 mvn com.willowtreeapps.saguaro:saguaro-maven-plugin:generate
 ```
 
-Configuration is very similar, albeit with more verbose xml.
+Configuration is very similar, albeit more verbose.
 ```xml
 <configure>
   <licenses>
@@ -257,30 +278,6 @@ Configuration is very similar, albeit with more verbose xml.
     </alias>
   </alises>
 </configure>
-```
-
-**Sending Feedback**
-
-You can customize sending feedback with an e-mail address, and optionally a custom subject and body.
-
-```xml
-<string name="send_feedback_email">mytestemail@mytestdomain.com</string>
-<string name="send_feedback_optional_subject">Feature request from Oprah</string>
-<string name="send_feedback_optional_body">PLEASE ADD MORE BEES.</string>
-```
-
-Then declare a `SendFeedbackTextView` in your xml layout:
-
-```xml
-<com.willowtreeapps.saguaro.android.widget.SendFeedbackTextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-```
-
-You can also obtain the `Intent` to send feedback programmatically:
-
-```java
-Saguaro.getSendFeedbackIntent(mContext);
 ```
 
 Including in Your Project

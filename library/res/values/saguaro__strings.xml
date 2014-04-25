@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="saguaro__full_version_text_dynamic">Version %1$s build %2$s</string>
-    <string name="saguaro__min_version_text_dynamic">v%1$s b%2$s</string>
     <string name="saguaro__close">Close</string>
     <string name="saguaro__acknowledgments">Acknowledgments</string>
     <string name="saguaro__send_feedback">Send Feedback</string>
