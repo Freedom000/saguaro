@@ -44,6 +44,30 @@ Saguaro.getMinVersionString(mContext);
 Saguaro.getFullVersionString(mContext);
 ```
 
+**SendFeedbackTextView**
+
+You can customize sending feedback with an e-mail address, and optionally a custom subject and body.
+
+```xml
+<string name="send_feedback_email">mytestemail@mytestdomain.com</string>
+<string name="send_feedback_optional_subject">Feature request from Oprah</string>
+<string name="send_feedback_optional_body">PLEASE ADD MORE BEES.</string>
+```
+
+Then declare a `SendFeedbackTextView` in your xml layout:
+
+```xml
+<com.willowtreeapps.saguaro.android.widget.SendFeedbackTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+```
+
+You can also obtain the `Intent` to send feedback programmatically:
+
+```java
+Saguaro.getSendFeedbackIntent(mContext);
+```
+
 **AcknowledgmentsTextView**
 
 For licensing information, add a `saguaro_config.xml` file in your `res/values` folder and populate your own values.
@@ -115,30 +139,6 @@ In your `saguaro_config.xml`, add the following to define your own licenses:
 ```
 
 Then create the `res/raw/bees.txt` file and copy the raw text of your license into it.
-
-**SendFeedbackTextView**
-
-You can customize sending feedback with an e-mail address, and optionally a custom subject and body.
-
-```xml
-<string name="send_feedback_email">mytestemail@mytestdomain.com</string>
-<string name="send_feedback_optional_subject">Feature request from Oprah</string>
-<string name="send_feedback_optional_body">PLEASE ADD MORE BEES.</string>
-```
-
-Then declare a `SendFeedbackTextView` in your xml layout:
-
-```xml
-<com.willowtreeapps.saguaro.android.widget.SendFeedbackTextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-```
-
-You can also obtain the `Intent` to send feedback programmatically:
-
-```java
-Saguaro.getSendFeedbackIntent(mContext);
-```
 
 Saguaro Gradle Plugin
 =====================
