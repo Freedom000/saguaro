@@ -13,10 +13,10 @@
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
-
     <name>Saguaro (Parent)</name>
     <description>Android library for managing licensing, attribution, and sending feedback.</description>
     <inceptionYear>2014</inceptionYear>
+    <url>http://github.com/willowtreeapps/saguaro/</url>
 
     <licenses>
         <license>
@@ -35,18 +35,26 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/willowtreeapps/saguaro-android/issues</url>
+        <url>https://github.com/willowtreeapps/saguaro/issues</url>
     </issueManagement>
 
     <scm>
-        <url>http://github.com/willowtreeapps/saguaro-android</url>
-        <connection>scm:git:git://github.com/willowtreeapps/saguaro-android.git</connection>
-        <developerConnection>scm:git:git@github.com:derekbrameyer/saguaro-android.git</developerConnection>
+        <url>http://github.com/willowtreeapps/saguaro</url>
+        <connection>scm:git:git://github.com/willowtreeapps/saguaro.git</connection>
+        <developerConnection>scm:git:git@github.com:derekbrameyer/saguaro.git</developerConnection>
     </scm>
 
     <developers>
         <developer>
             <name>Derek Brameyer</name>
+            <organization>WillowTree Apps</organization>
+        </developer>
+        <developer>
+            <name>Eric Richardson</name>
+            <organization>WillowTree Apps</organization>
+        </developer>
+        <developer>
+            <name>Evan Tatarka</name>
             <organization>WillowTree Apps</organization>
         </developer>
     </developers>
