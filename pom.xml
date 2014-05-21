@@ -41,7 +41,7 @@
     <scm>
         <url>http://github.com/willowtreeapps/saguaro</url>
         <connection>scm:git:git://github.com/willowtreeapps/saguaro.git</connection>
-        <developerConnection>scm:git:git@github.com:derekbrameyer/saguaro.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:willowtreeapps/saguaro.git</developerConnection>
     </scm>
 
     <developers>
