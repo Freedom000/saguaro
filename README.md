@@ -293,8 +293,8 @@ a dependency:
 
 ```xml
     <dependency>
-      <groupId>com.willowtreeapps.saguaro.android</groupId>
-      <artifactId>library</artifactId>
+      <groupId>com.willowtreeapps.saguaro</groupId>
+      <artifactId>saguaro-android</artifactId>
       <version>1.0.0</version>
       <type>aar</type>
     </dependency>
@@ -303,7 +303,7 @@ a dependency:
 If you are a Gradle user you can also easily include the library:
 
 ```groovy
-    compile 'com.willowtreeapps.saguaro.android:library:1.0.0'
+    compile 'com.willowtreeapps.saguaro:saguaro-android:1.0.0'
 ```
 
 Changelog
