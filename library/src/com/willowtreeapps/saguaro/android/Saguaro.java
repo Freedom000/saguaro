@@ -24,6 +24,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -51,6 +52,20 @@ public class Saguaro {
         attributionIntent
                 .setData(Uri.parse(String.format(WTA_ATTRIBUTION_URL, context.getPackageName(), UTM_CAMPAIGN)));
         return attributionIntent;
+    }
+
+    public static String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+    public static String getOsVersion() {
+        return "Android " + Build.VERSION.RELEASE + " API Level " + Build.VERSION.SDK_INT;
     }
 
     public static String getFullVersionString(Context context) {
@@ -91,7 +106,9 @@ public class Saguaro {
             int licenseProjectsId = resources.getIdentifier(license + "_projects", "array", context.getPackageName());
 
             // Skip if no licenses defined
-            if (licenseProjectsId == 0) continue;
+            if (licenseProjectsId == 0) {
+                continue;
+            }
 
             String licenseName = resources.getString(licenseNameId);
             String[] licenseProjects = resources.getStringArray(licenseProjectsId);
@@ -133,7 +150,7 @@ public class Saguaro {
         TextView message = (TextView) dialog.findViewById(android.R.id.message);
         message.setMovementMethod(LinkMovementMethod.getInstance());
 
-	return dialog;
+        return dialog;
     }
 
     private static AlertDialog showLicenseDialog(Context context, int licenseTextId) {
@@ -156,8 +173,8 @@ public class Saguaro {
                 })
                 .setIcon(android.R.drawable.ic_menu_info_details);
         AlertDialog dialog = builder.create();
-	dialog.show();
-	return dialog;
+        dialog.show();
+        return dialog;
     }
 
     private static String readRawToString(Resources resources, int rawId) throws IOException {
@@ -166,7 +183,9 @@ public class Saguaro {
             in = resources.openRawResource(rawId);
             return readToString(in);
         } finally {
-            if (in != null) in.close();
+            if (in != null) {
+                in.close();
+            }
         }
     }
 
@@ -220,6 +239,10 @@ public class Saguaro {
         if (TextUtils.isEmpty(body)) {
             uriBuilder.append(Uri.encode("\n\n"));
             uriBuilder.append(Uri.encode(getFullVersionString(context)));
+            uriBuilder.append(Uri.encode("\n"));
+            uriBuilder.append(Uri.encode(getDeviceName()));
+            uriBuilder.append(Uri.encode("\n"));
+            uriBuilder.append(Uri.encode(getOsVersion()));
         } else {
             uriBuilder.append(Uri.encode(body));
         }
@@ -245,6 +268,18 @@ public class Saguaro {
                 versionCode);
     }
 
+    private static String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
+    }
+
     private static String getApplicationName(Context context) {
         final PackageManager pm = context.getPackageManager();
         ApplicationInfo ai;
@@ -253,7 +288,8 @@ public class Saguaro {
         } catch (final PackageManager.NameNotFoundException e) {
             ai = null;
         }
-        return (String) (ai != null ? pm.getApplicationLabel(ai) : context.getString(R.string.saguaro__this_application));
+        return (String) (ai != null ? pm.getApplicationLabel(ai)
+                : context.getString(R.string.saguaro__this_application));
     }
 
     private static class ClickableString extends ClickableSpan {
