@@ -4,7 +4,6 @@ apply plugin: 'signing'
 
 dependencies {
     compile "com.willowtreeapps.saguaro:saguaro-plugin-base:$version"
-    compile 'com.google.guava:guava:16.0.1'
     compile gradleApi()
     compile localGroovy()
 }
@@ -29,62 +28,64 @@ artifacts {
   archives sourcesJar
 }
 
-signing {
-  sign configurations.archives
-}
+if (project.hasProperty('sonatypeUsername') && project.hasProperty('sonatypePassword')) {
 
-if (project.hasProperty('sonatypeUsername') && project.hasProperty('sonatypePassword'))
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      beforeDeployment { deployment -> signing.signPom(deployment) }
-
-      def repoUrl
-      if (project.version.endsWith("SNAPSHOT")) {
-        repoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
-      } else {
-        repoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-      }
-
-      repository(url: repoUrl) {
-        authentication(
-            userName: project.getProperty('sonatypeUsername'),
-            password: project.getProperty('sonatypePassword'))
-      }
-
-      pom.project {
-        name 'Saguaro Gradle Plugin'
-        packaging 'jar'
-        description 'A gradle plugin for Saguaro, an Android library that makes it easy to add version info, license info, and sending feedback.'
-        url 'https://github.com/willowtreeapps/saguaro'
-
-        scm {
-          url 'git@github.com:willowtreeapps/saguaro.git'
-          connection 'scm:git:git@github.com:willowtreeapps/saguaro.git'
-          developerConnection 'scm:git:git@github.com:willowtreeapps/saguaro.git'
-        }
-
-        licenses {
-          license {
-            name 'The Apache Software License, Version 2.0'
-              url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-              distribution 'repo'
-          }
-        }
-
-        developers {
-          developer {
-            id 'derekbrameyer'
-            name 'Derek Brameyer'
-          }
-          developer {
-            id 'evant'
-            name 'Evan Tatarka'
-          }
-        }
-      }
+    signing {
+        sign configurations.archives
     }
-  }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { deployment -> signing.signPom(deployment) }
+
+                def repoUrl
+                if (project.version.endsWith("SNAPSHOT")) {
+                    repoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+                } else {
+                    repoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                }
+
+                repository(url: repoUrl) {
+                    authentication(
+                            userName: project.getProperty('sonatypeUsername'),
+                            password: project.getProperty('sonatypePassword'))
+                }
+
+                pom.project {
+                    name 'Saguaro Gradle Plugin'
+                    packaging 'jar'
+                    description 'A gradle plugin for Saguaro, an Android library that makes it easy to add version info, license info, and sending feedback.'
+                    url 'https://github.com/willowtreeapps/saguaro'
+
+                    scm {
+                        url 'git@github.com:willowtreeapps/saguaro.git'
+                        connection 'scm:git:git@github.com:willowtreeapps/saguaro.git'
+                        developerConnection 'scm:git:git@github.com:willowtreeapps/saguaro.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'derekbrameyer'
+                            name 'Derek Brameyer'
+                        }
+                        developer {
+                            id 'evant'
+                            name 'Evan Tatarka'
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 install {
