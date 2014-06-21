@@ -16,7 +16,6 @@
 package com.willowtreeapps.saguaro.plugin;
 
 import com.google.common.base.Objects;
-import org.codehaus.plexus.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -47,7 +46,7 @@ public class LicenseDependency {
     }
 
     public String getName() {
-        if (StringUtils.isEmpty(name) && dependency != null) {
+        if (name != null && !name.isEmpty() && dependency != null) {
             name = dependency.getName();
         }
         return name;

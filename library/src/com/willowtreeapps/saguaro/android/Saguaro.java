@@ -82,6 +82,26 @@ public class Saguaro {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.saguaro__acknowledgments);
 
+        builder.setMessage(getOpenSourceText(context, resources));
+        builder.setNegativeButton(resources.getString(R.string.saguaro__close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setCancelable(true);
+        builder.setIcon(android.R.drawable.ic_menu_info_details);
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
+
+        TextView message = (TextView) dialog.findViewById(android.R.id.message);
+        message.setMovementMethod(LinkMovementMethod.getInstance());
+
+        return dialog;
+    }
+
+    public static String getOpenSourceText(final Context context, final Resources resources) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(String.format(resources.getString(R.string.saguaro__licenses_header), getApplicationName(context)));
         sb.append("\n\n");
@@ -133,24 +153,7 @@ public class Saguaro {
                 sb.append("\n\n");
             }
         }
-
-        builder.setMessage(sb);
-        builder.setNegativeButton(resources.getString(R.string.saguaro__close), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setCancelable(true);
-        builder.setIcon(android.R.drawable.ic_menu_info_details);
-        AlertDialog dialog = builder.create();
-
-        dialog.show();
-
-        TextView message = (TextView) dialog.findViewById(android.R.id.message);
-        message.setMovementMethod(LinkMovementMethod.getInstance());
-
-        return dialog;
+        return  sb.toString();
     }
 
     private static AlertDialog showLicenseDialog(Context context, int licenseTextId) {

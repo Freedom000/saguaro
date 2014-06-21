@@ -24,9 +24,6 @@ import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ResolvedArtifact
 
-import static com.google.common.base.Strings.isNullOrEmpty
-import static com.google.common.collect.Sets.newHashSet
-
 class GradleLicenseResolver implements LicenseResolver {
     private static final String DEFAULT_CONFIGURATION_TO_HANDLE = "compile"
 
@@ -58,7 +55,7 @@ class GradleLicenseResolver implements LicenseResolver {
      * @return Set with resolved artifacts
      */
     Set<ResolvedArtifact> resolveProjectDependencies(Project project) {
-        Set<ResolvedArtifact> dependenciesToHandle = newHashSet()
+        Set<ResolvedArtifact> dependenciesToHandle = new HashSet<ResolvedArtifact>()
         def subprojects = subprojects(project)
 
         if (project.configurations.any { it.name == DEFAULT_CONFIGURATION_TO_HANDLE }) {
@@ -116,7 +113,7 @@ class GradleLicenseResolver implements LicenseResolver {
 
         if (!licenses.isEmpty()) {
             new LicenseDependency(dependencyName, dependency, licenses)
-        } else if (!isNullOrEmpty(xml.parent.text())) {
+        } else if (xml.parent.text() != null && !xml.parent.text().isEmpty()) {
             String parentGroup = xml.parent.groupId.text().trim()
             String parentName = xml.parent.artifactId.text().trim()
             String parentVersion = xml.parent.version.text().trim()
