@@ -37,6 +37,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.CustomAcknowledgmentsActivity"
+            android:label="Custom Acknowledgments">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.willowtreeapps.saguaro.android.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.SendFeedbackActivity"
             android:label="Send Feedback">
             <intent-filter>

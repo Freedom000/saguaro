@@ -16,6 +16,8 @@
 
 package com.willowtreeapps.saguaro.android;
 
+import com.willowtreeapps.saguaro.android.model.License;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,6 +45,7 @@ import java.util.List;
 
 public class Saguaro {
 
+    private static final String TAG = "Saguaro";
     private static final String WTA_ATTRIBUTION_URL
             = "http://www.willowtreeapps.com/?utm_source=%s&utm_medium=%s&utm_campaign=attribution";
     private static final String UTM_CAMPAIGN = "android";
@@ -113,47 +116,63 @@ public class Saguaro {
             sb.append("\n\n");
         }
 
+        List<License> licenses = getOpenSourceLicenses(context, resources);
+
+        for (final License license : licenses) {
+            for (String project : license.projects) {
+                sb.append("\u2022 ").append(project).append("\n");
+            }
+            sb.append("\n");
+            String subHeader = resources.getString(R.string.saguaro__license_subheader, license.name);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    showLicenseDialog(context, license.textResId);
+                }
+            };
+
+            int start = sb.length();
+            int nameStart = subHeader.indexOf(license.name);
+            sb.append(subHeader);
+            sb.setSpan(clickableSpan, start + nameStart, start + nameStart + license.name.length(), 0);
+            sb.append("\n\n");
+        }
+        return sb.toString();
+    }
+
+    public static List<License> getOpenSourceLicenses(final Context context, final Resources resources) {
+        List<License> licenses = new ArrayList<License>();
+
         String[] baseLicenses = resources.getStringArray(R.array.saguaro__base_licenses);
         String[] userLicenses = resources.getStringArray(R.array.saguaro_licenses);
 
-        List<String> licenses = new ArrayList<String>();
-        licenses.addAll(Arrays.asList(baseLicenses));
-        licenses.addAll(Arrays.asList(userLicenses));
+        List<String> licensesAsStrings = new ArrayList<String>();
+        licensesAsStrings.addAll(Arrays.asList(baseLicenses));
+        licensesAsStrings.addAll(Arrays.asList(userLicenses));
 
-        for (String license : licenses) {
-            int licenseNameId = resources.getIdentifier(license + "_name", "string", context.getPackageName());
-            final int licenseTextId = resources.getIdentifier(license, "raw", context.getPackageName());
-            int licenseProjectsId = resources.getIdentifier(license + "_projects", "array", context.getPackageName());
+        for (String licenseString : licensesAsStrings) {
+            int licenseNameId = resources.getIdentifier(licenseString + "_name", "string", context.getPackageName());
+            final int licenseTextId = resources.getIdentifier(licenseString, "raw", context.getPackageName());
+            int licenseProjectsId = resources
+                    .getIdentifier(licenseString + "_projects", "array", context.getPackageName());
 
             // Skip if no licenses defined
             if (licenseProjectsId == 0) {
                 continue;
             }
 
-            String licenseName = resources.getString(licenseNameId);
-            String[] licenseProjects = resources.getStringArray(licenseProjectsId);
+            String[] projects = resources.getStringArray(licenseProjectsId);
 
-            if (licenseProjects.length > 0) {
-                for (String project : licenseProjects) {
-                    sb.append("\u2022 ").append(project).append("\n");
-                }
-                sb.append("\n");
-                String subHeader = resources.getString(R.string.saguaro__license_subheader, licenseName);
-                ClickableSpan clickableSpan = new ClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        showLicenseDialog(context, licenseTextId);
-                    }
-                };
-
-                int start = sb.length();
-                int nameStart = subHeader.indexOf(licenseName);
-                sb.append(subHeader);
-                sb.setSpan(clickableSpan, start + nameStart, start + nameStart + licenseName.length(), 0);
-                sb.append("\n\n");
+            if (projects.length > 0) {
+                License license = new License();
+                license.name = resources.getString(licenseNameId);
+                license.textResId = licenseTextId;
+                license.projects = projects;
+                licenses.add(license);
             }
         }
-        return  sb.toString();
+
+        return licenses;
     }
 
     private static AlertDialog showLicenseDialog(Context context, int licenseTextId) {
@@ -161,7 +180,7 @@ public class Saguaro {
         try {
             licenseText = readRawToString(context.getResources(), licenseTextId);
         } catch (IOException e) {
-            Log.e("Suguaro", e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -180,7 +199,7 @@ public class Saguaro {
         return dialog;
     }
 
-    private static String readRawToString(Resources resources, int rawId) throws IOException {
+    public static String readRawToString(Resources resources, int rawId) throws IOException {
         InputStream in = null;
         try {
             in = resources.openRawResource(rawId);
