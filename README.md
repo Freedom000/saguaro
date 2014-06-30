@@ -10,6 +10,21 @@ Try out the sample application on [Google Play][6].
          src="http://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
 </a>
 
+Changelog
+=========
+
+**1.0.1**
+* Add device name, Android version, and Android API level to send feedback information
+* Removed conflicting gradle plugin dependencies
+* Add OpenSourceTextView to render acknowledgment dialog content
+* Expose open source license as a public String
+* Expose licenses as Java model objects for custom use
+
+**1.0.0**
+* AcknowledgmentsTextView
+* SendFeedbackTextView
+* VersionTextView
+
 Native Android Usage
 ====================
 
@@ -305,14 +320,6 @@ If you are a Gradle user you can also easily include the library:
 ```groovy
     compile 'com.willowtreeapps.saguaro:saguaro-android:1.0.0'
 ```
-
-Changelog
-=========
-
-**1.0.0**
-* AcknowledgmentsTextView
-* SendFeedbackTextView
-* VersionTextView
 
 Contribution
 ============
