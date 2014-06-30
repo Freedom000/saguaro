@@ -11,7 +11,7 @@
     <groupId>com.willowtreeapps.saguaro</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>Saguaro (Parent)</name>
     <description>Android library for managing licensing, attribution, and sending feedback.</description>
     <inceptionYear>2014</inceptionYear>
