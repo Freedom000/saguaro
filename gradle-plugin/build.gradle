@@ -8,8 +8,8 @@ repositories {
 }
 
 dependencies {
-    //compile "com.willowtreeapps.saguaro:saguaro-plugin-base:$version"
-    compile project(":saguaro-plugin-base")
+    compile "com.willowtreeapps.saguaro:saguaro-plugin-base:$version"
+//    compile project(":saguaro-plugin-base")
     compile gradleApi()
     compile localGroovy()
 }

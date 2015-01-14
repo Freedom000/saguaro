@@ -31,8 +31,8 @@ repositories {
 }
 
 dependencies {
-    //compile "com.willowtreeapps.saguaro:saguaro-android:$version"
-    compile project(":saguaro-android")
+    compile "com.willowtreeapps.saguaro:saguaro-android:$version"
+//    compile project(":saguaro-android")
     compile "com.actionbarsherlock:actionbarsherlock:4.4.0@aar"
     compile 'com.android.support:support-v4:21.0.3'
     compile "joda-time:joda-time:2.2"
@@ -45,5 +45,7 @@ saguaro {
     license bees, 'Bees Lib'
     license mit, ['Mit 1', 'Mit 2', 'Mit 3', 'Mit 4']
     license bsd2, ['BSD 1', 'BSD 2', 'BSD 3']
-    // ignore 'com.example.bees:lib-to-ignore'
+
+    ignore 'com.android.support:support-v4'
+    ignore 'com.android.support:support-annotations'
 }
