@@ -2,14 +2,17 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-dependencies {
-    compile "com.willowtreeapps.saguaro:saguaro-plugin-base:$version"
-    compile gradleApi()
-    compile localGroovy()
-}
+version = '1.0.2-SNAPSHOT'
 
 repositories {
+    mavenLocal()
     mavenCentral()
+}
+
+dependencies {
+    compile project(":plugin-base")//"com.willowtreeapps.saguaro:saguaro-plugin-base:$version"
+    compile gradleApi()
+    compile localGroovy()
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
