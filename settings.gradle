@@ -1,3 +1,4 @@
-include ':plugin-base', ':gradle-plugin', ':library'//, ':sample'
+include ':plugin-base', ':gradle-plugin', ':library', ':sample'
 
-//project(':plugin-base').name = 'saguaro-plugin-base'
+project(':plugin-base').name = 'saguaro-plugin-base'
+project(':library').name = 'saguaro-android'

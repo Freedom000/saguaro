@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenLocal()
+        mavenCentral()
     }
 
     dependencies {
@@ -8,7 +9,7 @@ buildscript {
     }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'saguaro'
 
 android {
@@ -30,9 +31,10 @@ repositories {
 }
 
 dependencies {
-    compile "com.willowtreeapps.saguaro:saguaro-android:$version"
+    //compile "com.willowtreeapps.saguaro:saguaro-android:$version"
+    compile project(":saguaro-android")
     compile "com.actionbarsherlock:actionbarsherlock:4.4.0@aar"
-    compile 'com.android.support:support-v4:19.0.+'
+    compile 'com.android.support:support-v4:21.0.3'
     compile "joda-time:joda-time:2.2"
 }
 

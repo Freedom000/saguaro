@@ -2,15 +2,14 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-version = '1.0.2-SNAPSHOT'
-
 repositories {
     mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    compile project(":plugin-base")//"com.willowtreeapps.saguaro:saguaro-plugin-base:$version"
+    //compile "com.willowtreeapps.saguaro:saguaro-plugin-base:$version"
+    compile project(":saguaro-plugin-base")
     compile gradleApi()
     compile localGroovy()
 }

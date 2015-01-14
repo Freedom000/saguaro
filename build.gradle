@@ -25,5 +25,5 @@ def maven(pom, libName = null) {
 
 allprojects {
     group = 'com.willowtreeapps.saguaro'
-    version = '1.0.1'
+    version = '1.0.2-SNAPSHOT'
 }
