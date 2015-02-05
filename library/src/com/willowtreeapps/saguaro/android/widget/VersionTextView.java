@@ -41,10 +41,14 @@ public class VersionTextView extends TextView {
     }
 
     private void refreshVersionText() {
-        if (mIsFullVersionText) {
-            setText(Saguaro.getFullVersionString(getContext()));
+        if (isInEditMode()) {
+            setText("Version 1.0 Build 1");
         } else {
-            setText(Saguaro.getMinVersionString(getContext()));
+            if (mIsFullVersionText) {
+                setText(Saguaro.getFullVersionString(getContext()));
+            } else {
+                setText(Saguaro.getMinVersionString(getContext()));
+            }
         }
     }
 
